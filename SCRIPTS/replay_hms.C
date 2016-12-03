@@ -94,7 +94,11 @@ void replay_hms(Int_t RunNumber=0, Int_t MaxEvent=0) {
                                 // 1 = counter is # of all decode reads
                                 // 2 = counter is event number
  analyzer->SetEvent(event);
+ if (RunNumber < 232) {
+ analyzer->SetCrateMapFileName("MAPS/db_crateDCmap.dat");
+ }else {
  analyzer->SetCrateMapFileName("MAPS/db_cratemap.dat");
+     }
  analyzer->SetOutFile(ROOTFileName.Data());
  analyzer->SetOdefFile("DEF-files/hdcana.def");
  analyzer->SetCutFile("DEF-files/hdcana_cuts.def");    // optional

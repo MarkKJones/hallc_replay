@@ -62,7 +62,7 @@
 ; hstat_maxchisq          chisquared limit for tracks used to measure hodo. eff.
   hstat_maxchisq = 10.
 ; hsel_using_scin         uses scintillator for track selection
-  hsel_using_scin = 1
+  hsel_using_scin = 0
 ; hstat_slop              distance from center of scin. to count as expecting hit
   hstat_slop = 2.
 ; hstat_mineff            warning level for scin. effic.
