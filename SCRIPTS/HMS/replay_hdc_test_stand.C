@@ -17,7 +17,7 @@ void replay_hdc_test_stand(Int_t RunNumber=0, Int_t MaxEvent=0) {
 
   // Create file name patterns.
   const char* RunFileNamePattern = "raw/test_%d.dat";
-  const char* ROOTFileNamePattern = "ROOTfiles/test_%d.root";
+  const char* ROOTFileNamePattern = "ROOTfiles/testing_%d.root";
   // Add variables to global list.
   gHcParms->Define("gen_run_number", "Run Number", RunNumber);
   gHcParms->AddString("g_ctp_database_filename", "DBASE/standard.database");
@@ -31,18 +31,25 @@ void replay_hdc_test_stand(Int_t RunNumber=0, Int_t MaxEvent=0) {
 
   // Load params for HMS DC test stand configuration
   gHcParms->Load("PARAM/HMS/DC/hdc_test_stand.param");
+  gHcParms->Load("PARAM/TRIG/thms.param");
+
 
   // Load the Hall C style detector map
   gHcDetectorMap = new THcDetectorMap();
-  //gHcDetectorMap->Load(gHcParms->GetString("g_decode_map_filename"));
-  gHcDetectorMap->Load("MAPS/HMS/DETEC/hdc.map");
+  gHcDetectorMap->Load(gHcParms->GetString("g_decode_map_filename"));
 
   // Set up the equipment to be analyzed.
   THaApparatus* HMS = new THcHallCSpectrometer("H", "HMS");
+  THaApparatus* TRG = new THcTrigApp("T", "TRG");
+  
   gHaApps->Add(HMS);
-  // Add HMS drift chambers
+  gHaApps->Add(TRG);
+  
+ 
+  // Add HMS drift chambers and TRG Detector
   HMS->AddDetector(new THcDC("dc", "Drift Chambers"));
-
+  TRG->AddDetector(new THcTrigDet("hms", "Trig Det"));
+  
   // Additional detectors:
   //HMS->AddDetector(new THcHodoscope("hod", "Hodoscope"));
   //HMS->AddDetector(new THcShower("cal", "Shower"));
