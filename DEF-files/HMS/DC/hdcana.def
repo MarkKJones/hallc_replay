@@ -1,6 +1,5 @@
 # See $ANALYZER/examples/output_example.def for examples
-#
-block T.hms.*
+block T.*
 block H.dc.*
 #block H.scin.*
 
