@@ -17,9 +17,14 @@ TH1F hdc2v1_wm 'HDC 2V1 Wiremap' H.dc.2v1.wirenum 107 0.5 107.5
 TH1F hdc2y2_wm 'HDC 2Y2 Wiremap' H.dc.2y2.wirenum  52 0.5  52.5
 TH1F hdc2x2_wm 'HDC 2X2 Wiremap' H.dc.2x2.wirenum 113 0.5 113.5
 
-TH1F hdc_reftime1 'HDC reftime1' T.hms.hREF1_tdc  3000 0 30000
-TH1F hdc_reftime2 'HDC reftime2' T.hms.hREF2_tdc  3000 0 30000
-TH1F hdc_ref_diff 'HDC reference diff' T.hms.hREF1_tdc-T.hms.hREF2_tdc 600 0 600
+TH1F hdc_reftime1 'HDC reftime1' T.hms.hREF1_sl8_tdc  3000 0 30000
+TH1F hdc_reftime2 'HDC reftime2' T.hms.hREF2_sl10_tdc  3000 0 30000
+TH1F hdc_reftime1 'HDC reftime1' T.hms.hREF3_sl5_tdc  3000 0 30000
+TH1F hdc_reftime2 'HDC reftime2' T.hms.hREF4_sl17_tdc  3000 0 30000
+TH1F hdc_ref_diff_sl8_10 'HDC reference diff sl8-sl10' T.hms.hREF1_sl8_tdc-T.hms.hREF2_sl10_tdc 600 0 600
+TH1F hdc_ref_diff_sl8_5 'HDC reference diff sl8-sl5' T.hms.hREF1_sl8_tdc-T.hms.hREF3_sl5_tdc 600 -300 300
+TH1F hdc_ref_diff_sl8_17 'HDC reference diff sl8-sl17' T.hms.hREF1_sl8_tdc-T.hms.hREF4_sl17_tdc 600 -300 300
+
 
 #TH2F hdc1x1_wire_num_vs_raw_tdc 'HDC 1X1 Wiremap; Wire Number; Raw TDC Value (clicks)' H.dc.1x1.wirenum H.dc.1x1.rawtdc 113 0.5 113.5 1400 0 14000
 #TH2F hdc1y1_wire_num_vs_raw_tdc 'HDC 1Y1 Wiremap; Wire Number; Raw TDC Value (clicks)' H.dc.1y1.wirenum H.dc.1y1.rawtdc 52  0.5  52.5 1400 0 14000

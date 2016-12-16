@@ -16,7 +16,7 @@ void replay_hdc_test_stand(Int_t RunNumber=0, Int_t MaxEvent=0) {
   }
 
   // Create file name patterns.
-  const char* RunFileNamePattern = "raw/test_%d.dat";
+  const char* RunFileNamePattern = "raw/hms_all_000%d.dat";
   const char* ROOTFileNamePattern = "ROOTfiles/testing_%d.root";
   // Add variables to global list.
   gHcParms->Define("gen_run_number", "Run Number", RunNumber);
