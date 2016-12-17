@@ -15,7 +15,7 @@ cin >> run_NUM;
 	  TFile *f = new TFile(Form("../../ROOTfiles/test_%d.root", run_NUM), "READ");
 
 	  //create new file
-	  TFile *g = new TFile(Form(/*"hms_dc_time_%d.root"*/"testing_%d.root", run_NUM), "RECREATE"); // create new file to store histo
+	  TFile *g = new TFile(Form("hms_dc_time_%d.root", run_NUM), "RECREATE"); // create new file to store histo
 
       f->cd();
 

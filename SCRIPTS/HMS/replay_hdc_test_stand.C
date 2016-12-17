@@ -17,7 +17,7 @@ void replay_hdc_test_stand(Int_t RunNumber=0, Int_t MaxEvent=0) {
 
   // Create file name patterns.
   const char* RunFileNamePattern = "raw/hms_all_000%d.dat";
-  const char* ROOTFileNamePattern = "ROOTfiles/testing_%d.root";
+  const char* ROOTFileNamePattern = "ROOTfiles/test_%d.root";
   // Add variables to global list.
   gHcParms->Define("gen_run_number", "Run Number", RunNumber);
   gHcParms->AddString("g_ctp_database_filename", "DBASE/standard.database");
@@ -30,7 +30,7 @@ void replay_hdc_test_stand(Int_t RunNumber=0, Int_t MaxEvent=0) {
   gHcParms->Load(gHcParms->GetString("g_ctp_parm_filename"));
 
   // Load params for HMS DC test stand configuration
-  gHcParms->Load("PARAM/HMS/DC/hdc_test_stand.param");
+//  gHcParms->Load("PARAM/HMS/DC/hdc_test_stand.param");
   gHcParms->Load("PARAM/TRIG/thms.param");
 
 
