@@ -113,9 +113,9 @@ twenty_perc_maxContent[sensewire-1] = bin_maxContent[sensewire-1] * 0.20;
 
 
 
-//****************************************************
-//Determine  which bin has around 20% max_BinContent *
-//****************************************************
+//****************************************************//
+//Determine  which bin has around 20% max_BinContent *//
+//****************************************************//
 
 
 //Declarations
@@ -177,9 +177,9 @@ ref_time[sensewire-1] = cell_dt[sensewire-1] ->GetXaxis() -> GetBinCenter(bin_nu
 //cout << "BIN: " << bin_num[0] << endl;
 
 
-//*********************************************************
-//*******Extract the "t0" Using a Fitting Procedure********
-//*********************************************************
+//*********************************************************//
+//*******Extract the "t0" Using a Fitting Procedure********//
+//*********************************************************//
 
 //Declarations
 int time_init;           //start fit value 
@@ -256,37 +256,37 @@ ofs.close();
 //t->SaveAs(tzero_plots);
 
 
-/*****************************************************************************************
-        CALCULATE THE "t0s" WEIGHTED AVERAGE FOR WIRE DRIFT TIMES WITH ENTRIES > = 300 
- ****************************************************************************************/
+//*****************************************************************************************//
+//        CALCULATE THE "t0s" WEIGHTED AVERAGE FOR WIRE DRIFT TIMES WITH ENTRIES > = 300   //
+//*****************************************************************************************//
 
 
 //open t0 dat file
   ifstream ifs;
   ifs.open (t_zero_file);
   string line;
-  
-  //open new data file from the output stream
+
+  //open new data file from the output stream to write updated t0 values
   TString t_zero_file_corr = "tzero_data/hdc_"+st_DC_plane+Form("tzero_run%d_corr.txt", run);
   ofs.open(t_zero_file_corr);
   ofs << " #Wire " << "     " << " t_zero " << "     " << " t_zero_err " << "     " << " entries " << endl; 
 
+//read line bt line the t_zero_file
 while(getline(ifs, line)) {
 	if(!line.length()|| line[0] == '#')
 	   continue;
-	sensewire = 0, t_zero = 0, t_zero_err = 0., entries = 0 ;
-	sscanf(line.c_str(), "%d %d %lf %d", &sensewire, &t_zero, &t_zero_err, &entries);
-	 
+	sensewire = 0, t_zero = 0, t_zero_err = 0., entries = 0 ; //set values to zero
+	sscanf(line.c_str(), "%d %d %lf %d", &sensewire, &t_zero, &t_zero_err, &entries); //assign each of the variables above a data in the t_zero_file
+     //Check if entries for each sensewire exceeds a certain number of events
     if (entries>300) {
 	ofs << sensewire << "        " << t_zero << "        " << t_zero_err << "        " << entries << endl;
-         
+
 }
 
 }
 ifs.close();
 
 // Make Plot of t0 versus Wire Number for entries > 300 events
-
 TCanvas *t1 = new TCanvas("t1", "", 2000,500);
 t1->SetGrid();
 
