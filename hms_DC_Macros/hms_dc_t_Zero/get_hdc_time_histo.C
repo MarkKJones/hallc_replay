@@ -51,11 +51,7 @@ cin >> run_NUM;
                                                       electrons reach the rearest sense wire, producing a detectable signal in the O'scope */
 	
      //Create Histograms
-     //h[ip] = new TH1F(drift_time_histo, title, 200, -100, 300);  //set time to 400 ns/200 bins = 2ns/bin
-     
-      //===TESTING PURPOSES===//
-     h[ip] =  new TH1F(drift_time_histo, title, 400, -50, 350);  //set drift time bin width to 1ns/bin
-     //=====================//
+     h[ip] = new TH1F(drift_time_histo, title, 200, -50, 350);  //set time to 400 ns/200 bins = 2ns/bin
 }
 		
     //Declare number of entries in the tree
@@ -73,7 +69,7 @@ cin >> run_NUM;
     
     for(Int_t j=0; j<Ndata[ip]; j++){
 	
-	h[ip]->Fill(hdc_time[ip][j]+1525);  //fill and shift entire histogram by 1525 ns so as to place the histogram rising edge at ~ 0 ns
+	h[ip]->Fill(hdc_time[ip][j]);  //fill and shift entire histogram by 1525 ns so as to place the histogram rising edge at ~ 0 ns
        
 	
    }

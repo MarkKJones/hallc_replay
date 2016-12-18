@@ -30,7 +30,7 @@ void replay_hdc_test_stand(Int_t RunNumber=0, Int_t MaxEvent=0) {
   gHcParms->Load(gHcParms->GetString("g_ctp_parm_filename"));
 
   // Load params for HMS DC test stand configuration
-//  gHcParms->Load("PARAM/HMS/DC/hdc_test_stand.param");
+  gHcParms->Load("PARAM/HMS/DC/hdc_test_stand.param");
   gHcParms->Load("PARAM/TRIG/thms.param");
 
 

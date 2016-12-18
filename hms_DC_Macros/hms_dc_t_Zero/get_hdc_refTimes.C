@@ -16,7 +16,7 @@ void get_hdc_refTimes()
   cin >> run_NUM;
   
   //Open root file containing drift time histos
-  TFile *f = new TFile(Form(/*"hms_dc_time_%d.root"*/"testing_%d.root", run_NUM),"READ");
+  TFile *f = new TFile(Form("hms_dc_time_%d.root", run_NUM),"READ");
  
  //Define histogram array
  TH1F* h[NPLANES];
