@@ -246,7 +246,7 @@ graph->GetXaxis()->CenterTitle();
 graph->GetYaxis()->SetTitle("t-Zero (ns)");
 graph->GetYaxis()->CenterTitle();
 graph->GetYaxis()->SetRangeUser(-50.0, 50.0);
-graph->Write(title);   //write to a root file
+t->Write(title);   //write to a root file
 graph->Draw("AP");
 
 //close dat file
@@ -271,27 +271,64 @@ ofs.close();
   ofs.open(t_zero_file_corr);
   ofs << " #Wire " << "     " << " t_zero " << "     " << " t_zero_err " << "     " << " entries " << endl; 
 
+  //Initialize variables related to weighted avg
+  double sum_NUM;  //numerator of weighted avg
+  double sum_DEN;   //denominator of weighted avg
+  double weighted_AVG;
+  double weighted_AVG_err; 
+  
+  //set them to zero to start sum inside while loop 
+   sum_NUM = 0.0;
+   sum_DEN = 0.0;
+   weighted_AVG = 0.0;
+   weighted_AVG_err = 0.0; 
+
 //read line bt line the t_zero_file
 while(getline(ifs, line)) {
 	if(!line.length()|| line[0] == '#')
 	   continue;
-	sensewire = 0, t_zero = 0, t_zero_err = 0., entries = 0 ; //set values to zero
+	//	sensewire = 0, t_zero = 0.0, t_zero_err = 0.0, entries = 0 ; //set values to zero
+       
 	sscanf(line.c_str(), "%d %d %lf %d", &sensewire, &t_zero, &t_zero_err, &entries); //assign each of the variables above a data in the t_zero_file
-     //Check if entries for each sensewire exceeds a certain number of events
-    if (entries>300) {
-	ofs << sensewire << "        " << t_zero << "        " << t_zero_err << "        " << entries << endl;
+     
+    //Check if entries for each sensewire exceeds a certain number of events
+    
+      if (entries>300) {
+	
+      //Calculate the weighted average of t0s
+      sum_NUM = sum_NUM + t_zero/(t_zero_err*t_zero_err);
+      sum_DEN = sum_DEN + 1.0/(t_zero_err*t_zero_err);      
+         
+    //cout << "sum_NUM : " << sum_NUM << endl;  
+      //cout << "sum_DEN : " << sum_DEN << endl;  
+
+    
+
+
+    ofs << sensewire << "        " << t_zero << "        " << t_zero_err << "        " << entries << endl;
+
+     
 
 }
 
 }
+ weighted_AVG = sum_NUM / sum_DEN;
+ weighted_AVG_err = sqrt( 1.0 / sum_DEN );
+
+// cout << " final_sum_NUM = " << sum_NUM << endl;
+ // cout << " final_sum_DEN = " << sum_DEN << endl;
+ // cout << "weighted_AVG = " << weighted_AVG << endl;
+
 ifs.close();
 
 // Make Plot of t0 versus Wire Number for entries > 300 events
+
 TCanvas *t1 = new TCanvas("t1", "", 2000,500);
 t1->SetGrid();
 
 //TString mygraph = "hdc"+st_DC_plane+Form("_t_zero_run%d.txt", run);
 TGraphErrors *graph1 = new TGraphErrors(t_zero_file_corr, "%lg %lg %lg");
+graph1->SetName("graph1");
 TString title1 = "hdc"+st_DC_plane+": t0 versus sensewire_corrected";
 graph1->SetTitle(title);
 graph1->SetMarkerStyle(20);
@@ -302,8 +339,31 @@ graph1->GetXaxis()->CenterTitle();
 graph1->GetYaxis()->SetTitle("t-Zero (ns)");
 graph1->GetYaxis()->CenterTitle();
 graph1->GetYaxis()->SetRangeUser(-50.0, 50.0);
-graph1->Write(title1);   //write to a root file
-graph1->Draw("AP");
 
-ofs.close();
+// Get the local Minimum and Maximum of the TGraph  
+  int n = graph1->GetN();
+  float *x = graph1->GetX();
+  double locmin = TMath::LocMin(n,x); 
+  double locmax = TMath::LocMax(n,x);
+  
+
+//Draw a TLine representing the weighted Average of t0 
+ TLine *wght_avg = new TLine(locmin, weighted_AVG, locmax+1, weighted_AVG);
+  wght_avg->SetLineColor(kRed);
+  wght_avg->SetLineWidth(2);
+  wght_avg->SetLineStyle(2);
+  graph1->Draw("AP");
+  wght_avg->Draw();
+
+//Add text to canvas
+TLatex* ltx1 =  new TLatex();
+ltx1->DrawLatex(locmax/2,40, Form("Weighted Average = %lf #pm %lf ns", weighted_AVG, weighted_AVG_err) );
+
+
+
+  t1->Update();  //update canvas
+  t1->Write(title1);   //write canvas to a root file
+
+
+ofs.close();  //close data file
 }
