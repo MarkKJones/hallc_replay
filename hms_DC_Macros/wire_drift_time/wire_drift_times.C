@@ -111,8 +111,8 @@ cell_dt[sensewire-1] = new TH1F(Form("wire_%d", sensewire), "", 200., -50., 350.
 	 // cout << "Time: " << H_dc_2v1_time[i] << endl;
 
       //Fill the Histograms
-      cell_dt[sensewire-1]->Fill(H_dc_1x1_time[i]+1525);     //1525 ns offset to center drift time spectrum about ~0 ns
-      wire_vs_dt->Fill(H_dc_1x1_time[i]+1525, H_dc_1x1_wirenum[i]);
+      cell_dt[sensewire-1]->Fill(H_dc_1x1_time[i]);
+      wire_vs_dt->Fill(H_dc_1x1_time[i], H_dc_1x1_wirenum[i]);
 
 }
 
@@ -129,8 +129,8 @@ cell_dt[sensewire-1] = new TH1F(Form("wire_%d", sensewire), "", 200., -50., 350.
 	 // cout << "Time: " << H_dc_2v1_time[i] << endl;
 
       //Fill the Histograms
-      cell_dt[sensewire-1]->Fill(H_dc_1y1_time[i]+1525);
-      wire_vs_dt->Fill(H_dc_1y1_time[i]+1525, H_dc_1y1_wirenum[i]);
+      cell_dt[sensewire-1]->Fill(H_dc_1y1_time[i]);
+      wire_vs_dt->Fill(H_dc_1y1_time[i], H_dc_1y1_wirenum[i]);
 
 }
 
@@ -147,8 +147,8 @@ cell_dt[sensewire-1] = new TH1F(Form("wire_%d", sensewire), "", 200., -50., 350.
 	 // cout << "Time: " << H_dc_2v1_time[i] << endl;
 
       //Fill the Histograms
-      cell_dt[sensewire-1]->Fill(H_dc_1u1_time[i]+1525);
-      wire_vs_dt->Fill(H_dc_1u1_time[i]+1525, H_dc_1u1_wirenum[i]);
+      cell_dt[sensewire-1]->Fill(H_dc_1u1_time[i]);
+      wire_vs_dt->Fill(H_dc_1u1_time[i], H_dc_1u1_wirenum[i]);
 
 }
 
@@ -165,8 +165,8 @@ cell_dt[sensewire-1] = new TH1F(Form("wire_%d", sensewire), "", 200., -50., 350.
 	 // cout << "Time: " << H_dc_2v1_time[i] << endl;
 
       //Fill the Histograms
-      cell_dt[sensewire-1]->Fill(H_dc_1v1_time[i]+1525);
-      wire_vs_dt->Fill(H_dc_1v1_time[i]+1525, H_dc_1v1_wirenum[i]);
+      cell_dt[sensewire-1]->Fill(H_dc_1v1_time[i]);
+      wire_vs_dt->Fill(H_dc_1v1_time[i], H_dc_1v1_wirenum[i]);
 
 }
 
@@ -183,8 +183,8 @@ cell_dt[sensewire-1] = new TH1F(Form("wire_%d", sensewire), "", 200., -50., 350.
 	 // cout << "Time: " << H_dc_2v1_time[i] << endl;
 
       //Fill the Histograms
-      cell_dt[sensewire-1]->Fill(H_dc_1y2_time[i]+1525);
-      wire_vs_dt->Fill(H_dc_1y2_time[i]+1525, H_dc_1y2_wirenum[i]);
+      cell_dt[sensewire-1]->Fill(H_dc_1y2_time[i]);
+      wire_vs_dt->Fill(H_dc_1y2_time[i], H_dc_1y2_wirenum[i]);
 
 }
 
@@ -201,8 +201,8 @@ cell_dt[sensewire-1] = new TH1F(Form("wire_%d", sensewire), "", 200., -50., 350.
 	 // cout << "Time: " << H_dc_2v1_time[i] << endl;
 
       //Fill the Histograms
-      cell_dt[sensewire-1]->Fill(H_dc_1x2_time[i]+1525);
-      wire_vs_dt->Fill(H_dc_1x2_time[i]+1525, H_dc_1x2_wirenum[i]);
+      cell_dt[sensewire-1]->Fill(H_dc_1x2_time[i]);
+      wire_vs_dt->Fill(H_dc_1x2_time[i], H_dc_1x2_wirenum[i]);
 
 }
 
@@ -220,8 +220,8 @@ cell_dt[sensewire-1] = new TH1F(Form("wire_%d", sensewire), "", 200., -50., 350.
 	 // cout << "Time: " << H_dc_2v1_time[i] << endl;
 
       //Fill the Histograms
-      cell_dt[sensewire-1]->Fill(H_dc_2x1_time[i]+1525);
-      wire_vs_dt->Fill(H_dc_2x1_time[i]+1525, H_dc_2x1_wirenum[i]);
+      cell_dt[sensewire-1]->Fill(H_dc_2x1_time[i]);
+      wire_vs_dt->Fill(H_dc_2x1_time[i], H_dc_2x1_wirenum[i]);
 
 }
 
@@ -238,8 +238,8 @@ cell_dt[sensewire-1] = new TH1F(Form("wire_%d", sensewire), "", 200., -50., 350.
 	 // cout << "Time: " << H_dc_2v1_time[i] << endl;
 
       //Fill the Histograms
-      cell_dt[sensewire-1]->Fill(H_dc_2y1_time[i]+1525);
-      wire_vs_dt->Fill(H_dc_2y1_time[i]+1525, H_dc_2y1_wirenum[i]);
+      cell_dt[sensewire-1]->Fill(H_dc_2y1_time[i]);
+      wire_vs_dt->Fill(H_dc_2y1_time[i], H_dc_2y1_wirenum[i]);
 
 }
 
@@ -256,8 +256,8 @@ cell_dt[sensewire-1] = new TH1F(Form("wire_%d", sensewire), "", 200., -50., 350.
 	 // cout << "Time: " << H_dc_2v1_time[i] << endl;
 
       //Fill the Histograms
-      cell_dt[sensewire-1]->Fill(H_dc_2u1_time[i]+1525);
-      wire_vs_dt->Fill(H_dc_2u1_time[i]+1525, H_dc_2u1_wirenum[i]);
+      cell_dt[sensewire-1]->Fill(H_dc_2u1_time[i]);
+      wire_vs_dt->Fill(H_dc_2u1_time[i], H_dc_2u1_wirenum[i]);
 
 }
 
@@ -274,8 +274,8 @@ cell_dt[sensewire-1] = new TH1F(Form("wire_%d", sensewire), "", 200., -50., 350.
 	 // cout << "Time: " << H_dc_2v1_time[i] << endl;
 
       //Fill the Histograms
-      cell_dt[sensewire-1]->Fill(H_dc_2v1_time[i]+1525);
-      wire_vs_dt->Fill(H_dc_2v1_time[i]+1525, H_dc_2v1_wirenum[i]);
+      cell_dt[sensewire-1]->Fill(H_dc_2v1_time[i]);
+      wire_vs_dt->Fill(H_dc_2v1_time[i], H_dc_2v1_wirenum[i]);
 
 }
 
@@ -292,8 +292,8 @@ cell_dt[sensewire-1] = new TH1F(Form("wire_%d", sensewire), "", 200., -50., 350.
 	 // cout << "Time: " << H_dc_2v1_time[i] << endl;
 
       //Fill the Histograms
-      cell_dt[sensewire-1]->Fill(H_dc_2y2_time[i]+1525);
-      wire_vs_dt->Fill(H_dc_2y2_time[i]+1525, H_dc_2y2_wirenum[i]);
+      cell_dt[sensewire-1]->Fill(H_dc_2y2_time[i]);
+      wire_vs_dt->Fill(H_dc_2y2_time[i], H_dc_2y2_wirenum[i]);
 
 }
 
@@ -310,8 +310,8 @@ cell_dt[sensewire-1] = new TH1F(Form("wire_%d", sensewire), "", 200., -50., 350.
 	 // cout << "Time: " << H_dc_2v1_time[i] << endl;
 
       //Fill the Histograms
-      cell_dt[sensewire-1]->Fill(H_dc_2x2_time[i]+1525);
-      wire_vs_dt->Fill(H_dc_2x2_time[i]+1525, H_dc_2x2_wirenum[i]);
+      cell_dt[sensewire-1]->Fill(H_dc_2x2_time[i]);
+      wire_vs_dt->Fill(H_dc_2x2_time[i], H_dc_2x2_wirenum[i]);
 
 }
 
