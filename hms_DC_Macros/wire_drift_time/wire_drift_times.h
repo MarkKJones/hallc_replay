@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Fri Dec  9 12:58:02 2016 by ROOT version 5.34/18
+// Sun Dec 18 12:03:19 2016 by ROOT version 5.34/18
 // from TTree T/Hall A Analyzer Output DST
 // found on file: test_259.root
 //////////////////////////////////////////////////////////
@@ -118,18 +118,16 @@ public :
    Double_t        H_dc_2y2_time[52];   //[Ndata.H.dc.2y2.time]
    Int_t           Ndata_H_dc_2y2_wirenum;
    Double_t        H_dc_2y2_wirenum[52];   //[Ndata.H.dc.2y2.wirenum]
-   Int_t           Ndata_H_dc_reftime;
-   Double_t        H_dc_reftime[2];   //[Ndata.H.dc.reftime]
    Int_t           Ndata_H_dc_residual;
    Double_t        H_dc_residual[12];   //[Ndata.H.dc.residual]
    Int_t           Ndata_H_dc_x;
-   Double_t        H_dc_x[6];   //[Ndata.H.dc.x]
+   Double_t        H_dc_x[8];   //[Ndata.H.dc.x]
    Int_t           Ndata_H_dc_xp;
-   Double_t        H_dc_xp[6];   //[Ndata.H.dc.xp]
+   Double_t        H_dc_xp[8];   //[Ndata.H.dc.xp]
    Int_t           Ndata_H_dc_y;
-   Double_t        H_dc_y[6];   //[Ndata.H.dc.y]
+   Double_t        H_dc_y[8];   //[Ndata.H.dc.y]
    Int_t           Ndata_H_dc_yp;
-   Double_t        H_dc_yp[6];   //[Ndata.H.dc.yp]
+   Double_t        H_dc_yp[8];   //[Ndata.H.dc.yp]
    Double_t        H_dc_1u1_nhit;
    Double_t        H_dc_1v1_nhit;
    Double_t        H_dc_1x1_nhit;
@@ -157,32 +155,71 @@ public :
    Double_t        H_dc_tnhit;
    Double_t        H_dc_trawhit;
    Double_t        T_hms_h1T_tdc;
+   Double_t        T_hms_h1T_tdcMult;
    Double_t        T_hms_h1X_tdc;
+   Double_t        T_hms_h1X_tdcMult;
    Double_t        T_hms_h1Y_tdc;
+   Double_t        T_hms_h1Y_tdcMult;
    Double_t        T_hms_h2T_tdc;
+   Double_t        T_hms_h2T_tdcMult;
    Double_t        T_hms_h2X_tdc;
+   Double_t        T_hms_h2X_tdcMult;
    Double_t        T_hms_h2Y_tdc;
+   Double_t        T_hms_h2Y_tdcMult;
    Double_t        T_hms_hAERSUM_adc;
+   Double_t        T_hms_hAERSUM_adcMult;
+   Double_t        T_hms_hAERSUM_adcPed;
    Double_t        T_hms_hAERSUM_tdc;
+   Double_t        T_hms_hAERSUM_tdcMult;
    Double_t        T_hms_hASUM_adc;
+   Double_t        T_hms_hASUM_adcMult;
+   Double_t        T_hms_hASUM_adcPed;
    Double_t        T_hms_hASUM_tdc;
+   Double_t        T_hms_hASUM_tdcMult;
    Double_t        T_hms_hBSUM_adc;
+   Double_t        T_hms_hBSUM_adcMult;
+   Double_t        T_hms_hBSUM_adcPed;
    Double_t        T_hms_hBSUM_tdc;
+   Double_t        T_hms_hBSUM_tdcMult;
    Double_t        T_hms_hCERSUM_adc;
+   Double_t        T_hms_hCERSUM_adcMult;
+   Double_t        T_hms_hCERSUM_adcPed;
    Double_t        T_hms_hCERSUM_tdc;
+   Double_t        T_hms_hCERSUM_tdcMult;
    Double_t        T_hms_hCSUM_adc;
+   Double_t        T_hms_hCSUM_adcMult;
+   Double_t        T_hms_hCSUM_adcPed;
    Double_t        T_hms_hCSUM_tdc;
+   Double_t        T_hms_hCSUM_tdcMult;
    Double_t        T_hms_hDSUM_adc;
+   Double_t        T_hms_hDSUM_adcMult;
+   Double_t        T_hms_hDSUM_adcPed;
    Double_t        T_hms_hDSUM_tdc;
+   Double_t        T_hms_hDSUM_tdcMult;
    Double_t        T_hms_hPSHWRHI_tdc;
+   Double_t        T_hms_hPSHWRHI_tdcMult;
    Double_t        T_hms_hPSHWRLO_tdc;
+   Double_t        T_hms_hPSHWRLO_tdcMult;
    Double_t        T_hms_hPSHWR_adc;
-   Double_t        T_hms_hREF1_tdc;
-   Double_t        T_hms_hREF2_tdc;
+   Double_t        T_hms_hPSHWR_adcMult;
+   Double_t        T_hms_hPSHWR_adcPed;
+   Double_t        T_hms_hREF1_sl8_tdc;
+   Double_t        T_hms_hREF1_sl8_tdcMult;
+   Double_t        T_hms_hREF2_sl10_tdc;
+   Double_t        T_hms_hREF2_sl10_tdcMult;
+   Double_t        T_hms_hREF3_sl5_tdc;
+   Double_t        T_hms_hREF3_sl5_tdcMult;
+   Double_t        T_hms_hREF4_sl17_tdc;
+   Double_t        T_hms_hREF4_sl17_tdcMult;
    Double_t        T_hms_hSHWR_adc;
+   Double_t        T_hms_hSHWR_adcMult;
+   Double_t        T_hms_hSHWR_adcPed;
    Double_t        T_hms_hSHWR_tdc;
+   Double_t        T_hms_hSHWR_tdcMult;
    Double_t        T_hms_hT1_tdc;
+   Double_t        T_hms_hT1_tdcMult;
    Double_t        T_hms_hT2_tdc;
+   Double_t        T_hms_hT2_tdcMult;
  //THaEvent        *Event_Branch;
    ULong64_t       fEvtHdr_fEvtTime;
    UInt_t          fEvtHdr_fEvtNum;
@@ -289,8 +326,6 @@ public :
    TBranch        *b_H_dc_2y2_time;   //!
    TBranch        *b_Ndata_H_dc_2y2_wirenum;   //!
    TBranch        *b_H_dc_2y2_wirenum;   //!
-   TBranch        *b_Ndata_H_dc_reftime;   //!
-   TBranch        *b_H_dc_reftime;   //!
    TBranch        *b_Ndata_H_dc_residual;   //!
    TBranch        *b_H_dc_residual;   //!
    TBranch        *b_Ndata_H_dc_x;   //!
@@ -328,32 +363,71 @@ public :
    TBranch        *b_H_dc_tnhit;   //!
    TBranch        *b_H_dc_trawhit;   //!
    TBranch        *b_T_hms_h1T_tdc;   //!
+   TBranch        *b_T_hms_h1T_tdcMult;   //!
    TBranch        *b_T_hms_h1X_tdc;   //!
+   TBranch        *b_T_hms_h1X_tdcMult;   //!
    TBranch        *b_T_hms_h1Y_tdc;   //!
+   TBranch        *b_T_hms_h1Y_tdcMult;   //!
    TBranch        *b_T_hms_h2T_tdc;   //!
+   TBranch        *b_T_hms_h2T_tdcMult;   //!
    TBranch        *b_T_hms_h2X_tdc;   //!
+   TBranch        *b_T_hms_h2X_tdcMult;   //!
    TBranch        *b_T_hms_h2Y_tdc;   //!
+   TBranch        *b_T_hms_h2Y_tdcMult;   //!
    TBranch        *b_T_hms_hAERSUM_adc;   //!
+   TBranch        *b_T_hms_hAERSUM_adcMult;   //!
+   TBranch        *b_T_hms_hAERSUM_adcPed;   //!
    TBranch        *b_T_hms_hAERSUM_tdc;   //!
+   TBranch        *b_T_hms_hAERSUM_tdcMult;   //!
    TBranch        *b_T_hms_hASUM_adc;   //!
+   TBranch        *b_T_hms_hASUM_adcMult;   //!
+   TBranch        *b_T_hms_hASUM_adcPed;   //!
    TBranch        *b_T_hms_hASUM_tdc;   //!
+   TBranch        *b_T_hms_hASUM_tdcMult;   //!
    TBranch        *b_T_hms_hBSUM_adc;   //!
+   TBranch        *b_T_hms_hBSUM_adcMult;   //!
+   TBranch        *b_T_hms_hBSUM_adcPed;   //!
    TBranch        *b_T_hms_hBSUM_tdc;   //!
+   TBranch        *b_T_hms_hBSUM_tdcMult;   //!
    TBranch        *b_T_hms_hCERSUM_adc;   //!
+   TBranch        *b_T_hms_hCERSUM_adcMult;   //!
+   TBranch        *b_T_hms_hCERSUM_adcPed;   //!
    TBranch        *b_T_hms_hCERSUM_tdc;   //!
+   TBranch        *b_T_hms_hCERSUM_tdcMult;   //!
    TBranch        *b_T_hms_hCSUM_adc;   //!
+   TBranch        *b_T_hms_hCSUM_adcMult;   //!
+   TBranch        *b_T_hms_hCSUM_adcPed;   //!
    TBranch        *b_T_hms_hCSUM_tdc;   //!
+   TBranch        *b_T_hms_hCSUM_tdcMult;   //!
    TBranch        *b_T_hms_hDSUM_adc;   //!
+   TBranch        *b_T_hms_hDSUM_adcMult;   //!
+   TBranch        *b_T_hms_hDSUM_adcPed;   //!
    TBranch        *b_T_hms_hDSUM_tdc;   //!
+   TBranch        *b_T_hms_hDSUM_tdcMult;   //!
    TBranch        *b_T_hms_hPSHWRHI_tdc;   //!
+   TBranch        *b_T_hms_hPSHWRHI_tdcMult;   //!
    TBranch        *b_T_hms_hPSHWRLO_tdc;   //!
+   TBranch        *b_T_hms_hPSHWRLO_tdcMult;   //!
    TBranch        *b_T_hms_hPSHWR_adc;   //!
-   TBranch        *b_T_hms_hREF1_tdc;   //!
-   TBranch        *b_T_hms_hREF2_tdc;   //!
+   TBranch        *b_T_hms_hPSHWR_adcMult;   //!
+   TBranch        *b_T_hms_hPSHWR_adcPed;   //!
+   TBranch        *b_T_hms_hREF1_sl8_tdc;   //!
+   TBranch        *b_T_hms_hREF1_sl8_tdcMult;   //!
+   TBranch        *b_T_hms_hREF2_sl10_tdc;   //!
+   TBranch        *b_T_hms_hREF2_sl10_tdcMult;   //!
+   TBranch        *b_T_hms_hREF3_sl5_tdc;   //!
+   TBranch        *b_T_hms_hREF3_sl5_tdcMult;   //!
+   TBranch        *b_T_hms_hREF4_sl17_tdc;   //!
+   TBranch        *b_T_hms_hREF4_sl17_tdcMult;   //!
    TBranch        *b_T_hms_hSHWR_adc;   //!
+   TBranch        *b_T_hms_hSHWR_adcMult;   //!
+   TBranch        *b_T_hms_hSHWR_adcPed;   //!
    TBranch        *b_T_hms_hSHWR_tdc;   //!
+   TBranch        *b_T_hms_hSHWR_tdcMult;   //!
    TBranch        *b_T_hms_hT1_tdc;   //!
+   TBranch        *b_T_hms_hT1_tdcMult;   //!
    TBranch        *b_T_hms_hT2_tdc;   //!
+   TBranch        *b_T_hms_hT2_tdcMult;   //!
    TBranch        *b_Event_Branch_fEvtHdr_fEvtTime;   //!
    TBranch        *b_Event_Branch_fEvtHdr_fEvtNum;   //!
    TBranch        *b_Event_Branch_fEvtHdr_fEvtType;   //!
@@ -381,7 +455,7 @@ wire_drift_times::wire_drift_times(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-	    int run;
+ int run;
           
       cout << "Enter RUN NUM to analyze: " << endl;
       cin >> run;
@@ -532,8 +606,6 @@ void wire_drift_times::Init(TTree *tree)
    fChain->SetBranchAddress("H.dc.2y2.time", H_dc_2y2_time, &b_H_dc_2y2_time);
    fChain->SetBranchAddress("Ndata.H.dc.2y2.wirenum", &Ndata_H_dc_2y2_wirenum, &b_Ndata_H_dc_2y2_wirenum);
    fChain->SetBranchAddress("H.dc.2y2.wirenum", H_dc_2y2_wirenum, &b_H_dc_2y2_wirenum);
-   fChain->SetBranchAddress("Ndata.H.dc.reftime", &Ndata_H_dc_reftime, &b_Ndata_H_dc_reftime);
-   fChain->SetBranchAddress("H.dc.reftime", H_dc_reftime, &b_H_dc_reftime);
    fChain->SetBranchAddress("Ndata.H.dc.residual", &Ndata_H_dc_residual, &b_Ndata_H_dc_residual);
    fChain->SetBranchAddress("H.dc.residual", H_dc_residual, &b_H_dc_residual);
    fChain->SetBranchAddress("Ndata.H.dc.x", &Ndata_H_dc_x, &b_Ndata_H_dc_x);
@@ -571,32 +643,71 @@ void wire_drift_times::Init(TTree *tree)
    fChain->SetBranchAddress("H.dc.tnhit", &H_dc_tnhit, &b_H_dc_tnhit);
    fChain->SetBranchAddress("H.dc.trawhit", &H_dc_trawhit, &b_H_dc_trawhit);
    fChain->SetBranchAddress("T.hms.h1T_tdc", &T_hms_h1T_tdc, &b_T_hms_h1T_tdc);
+   fChain->SetBranchAddress("T.hms.h1T_tdcMult", &T_hms_h1T_tdcMult, &b_T_hms_h1T_tdcMult);
    fChain->SetBranchAddress("T.hms.h1X_tdc", &T_hms_h1X_tdc, &b_T_hms_h1X_tdc);
+   fChain->SetBranchAddress("T.hms.h1X_tdcMult", &T_hms_h1X_tdcMult, &b_T_hms_h1X_tdcMult);
    fChain->SetBranchAddress("T.hms.h1Y_tdc", &T_hms_h1Y_tdc, &b_T_hms_h1Y_tdc);
+   fChain->SetBranchAddress("T.hms.h1Y_tdcMult", &T_hms_h1Y_tdcMult, &b_T_hms_h1Y_tdcMult);
    fChain->SetBranchAddress("T.hms.h2T_tdc", &T_hms_h2T_tdc, &b_T_hms_h2T_tdc);
+   fChain->SetBranchAddress("T.hms.h2T_tdcMult", &T_hms_h2T_tdcMult, &b_T_hms_h2T_tdcMult);
    fChain->SetBranchAddress("T.hms.h2X_tdc", &T_hms_h2X_tdc, &b_T_hms_h2X_tdc);
+   fChain->SetBranchAddress("T.hms.h2X_tdcMult", &T_hms_h2X_tdcMult, &b_T_hms_h2X_tdcMult);
    fChain->SetBranchAddress("T.hms.h2Y_tdc", &T_hms_h2Y_tdc, &b_T_hms_h2Y_tdc);
+   fChain->SetBranchAddress("T.hms.h2Y_tdcMult", &T_hms_h2Y_tdcMult, &b_T_hms_h2Y_tdcMult);
    fChain->SetBranchAddress("T.hms.hAERSUM_adc", &T_hms_hAERSUM_adc, &b_T_hms_hAERSUM_adc);
+   fChain->SetBranchAddress("T.hms.hAERSUM_adcMult", &T_hms_hAERSUM_adcMult, &b_T_hms_hAERSUM_adcMult);
+   fChain->SetBranchAddress("T.hms.hAERSUM_adcPed", &T_hms_hAERSUM_adcPed, &b_T_hms_hAERSUM_adcPed);
    fChain->SetBranchAddress("T.hms.hAERSUM_tdc", &T_hms_hAERSUM_tdc, &b_T_hms_hAERSUM_tdc);
+   fChain->SetBranchAddress("T.hms.hAERSUM_tdcMult", &T_hms_hAERSUM_tdcMult, &b_T_hms_hAERSUM_tdcMult);
    fChain->SetBranchAddress("T.hms.hASUM_adc", &T_hms_hASUM_adc, &b_T_hms_hASUM_adc);
+   fChain->SetBranchAddress("T.hms.hASUM_adcMult", &T_hms_hASUM_adcMult, &b_T_hms_hASUM_adcMult);
+   fChain->SetBranchAddress("T.hms.hASUM_adcPed", &T_hms_hASUM_adcPed, &b_T_hms_hASUM_adcPed);
    fChain->SetBranchAddress("T.hms.hASUM_tdc", &T_hms_hASUM_tdc, &b_T_hms_hASUM_tdc);
+   fChain->SetBranchAddress("T.hms.hASUM_tdcMult", &T_hms_hASUM_tdcMult, &b_T_hms_hASUM_tdcMult);
    fChain->SetBranchAddress("T.hms.hBSUM_adc", &T_hms_hBSUM_adc, &b_T_hms_hBSUM_adc);
+   fChain->SetBranchAddress("T.hms.hBSUM_adcMult", &T_hms_hBSUM_adcMult, &b_T_hms_hBSUM_adcMult);
+   fChain->SetBranchAddress("T.hms.hBSUM_adcPed", &T_hms_hBSUM_adcPed, &b_T_hms_hBSUM_adcPed);
    fChain->SetBranchAddress("T.hms.hBSUM_tdc", &T_hms_hBSUM_tdc, &b_T_hms_hBSUM_tdc);
+   fChain->SetBranchAddress("T.hms.hBSUM_tdcMult", &T_hms_hBSUM_tdcMult, &b_T_hms_hBSUM_tdcMult);
    fChain->SetBranchAddress("T.hms.hCERSUM_adc", &T_hms_hCERSUM_adc, &b_T_hms_hCERSUM_adc);
+   fChain->SetBranchAddress("T.hms.hCERSUM_adcMult", &T_hms_hCERSUM_adcMult, &b_T_hms_hCERSUM_adcMult);
+   fChain->SetBranchAddress("T.hms.hCERSUM_adcPed", &T_hms_hCERSUM_adcPed, &b_T_hms_hCERSUM_adcPed);
    fChain->SetBranchAddress("T.hms.hCERSUM_tdc", &T_hms_hCERSUM_tdc, &b_T_hms_hCERSUM_tdc);
+   fChain->SetBranchAddress("T.hms.hCERSUM_tdcMult", &T_hms_hCERSUM_tdcMult, &b_T_hms_hCERSUM_tdcMult);
    fChain->SetBranchAddress("T.hms.hCSUM_adc", &T_hms_hCSUM_adc, &b_T_hms_hCSUM_adc);
+   fChain->SetBranchAddress("T.hms.hCSUM_adcMult", &T_hms_hCSUM_adcMult, &b_T_hms_hCSUM_adcMult);
+   fChain->SetBranchAddress("T.hms.hCSUM_adcPed", &T_hms_hCSUM_adcPed, &b_T_hms_hCSUM_adcPed);
    fChain->SetBranchAddress("T.hms.hCSUM_tdc", &T_hms_hCSUM_tdc, &b_T_hms_hCSUM_tdc);
+   fChain->SetBranchAddress("T.hms.hCSUM_tdcMult", &T_hms_hCSUM_tdcMult, &b_T_hms_hCSUM_tdcMult);
    fChain->SetBranchAddress("T.hms.hDSUM_adc", &T_hms_hDSUM_adc, &b_T_hms_hDSUM_adc);
+   fChain->SetBranchAddress("T.hms.hDSUM_adcMult", &T_hms_hDSUM_adcMult, &b_T_hms_hDSUM_adcMult);
+   fChain->SetBranchAddress("T.hms.hDSUM_adcPed", &T_hms_hDSUM_adcPed, &b_T_hms_hDSUM_adcPed);
    fChain->SetBranchAddress("T.hms.hDSUM_tdc", &T_hms_hDSUM_tdc, &b_T_hms_hDSUM_tdc);
+   fChain->SetBranchAddress("T.hms.hDSUM_tdcMult", &T_hms_hDSUM_tdcMult, &b_T_hms_hDSUM_tdcMult);
    fChain->SetBranchAddress("T.hms.hPSHWRHI_tdc", &T_hms_hPSHWRHI_tdc, &b_T_hms_hPSHWRHI_tdc);
+   fChain->SetBranchAddress("T.hms.hPSHWRHI_tdcMult", &T_hms_hPSHWRHI_tdcMult, &b_T_hms_hPSHWRHI_tdcMult);
    fChain->SetBranchAddress("T.hms.hPSHWRLO_tdc", &T_hms_hPSHWRLO_tdc, &b_T_hms_hPSHWRLO_tdc);
+   fChain->SetBranchAddress("T.hms.hPSHWRLO_tdcMult", &T_hms_hPSHWRLO_tdcMult, &b_T_hms_hPSHWRLO_tdcMult);
    fChain->SetBranchAddress("T.hms.hPSHWR_adc", &T_hms_hPSHWR_adc, &b_T_hms_hPSHWR_adc);
-   fChain->SetBranchAddress("T.hms.hREF1_tdc", &T_hms_hREF1_tdc, &b_T_hms_hREF1_tdc);
-   fChain->SetBranchAddress("T.hms.hREF2_tdc", &T_hms_hREF2_tdc, &b_T_hms_hREF2_tdc);
+   fChain->SetBranchAddress("T.hms.hPSHWR_adcMult", &T_hms_hPSHWR_adcMult, &b_T_hms_hPSHWR_adcMult);
+   fChain->SetBranchAddress("T.hms.hPSHWR_adcPed", &T_hms_hPSHWR_adcPed, &b_T_hms_hPSHWR_adcPed);
+   fChain->SetBranchAddress("T.hms.hREF1_sl8_tdc", &T_hms_hREF1_sl8_tdc, &b_T_hms_hREF1_sl8_tdc);
+   fChain->SetBranchAddress("T.hms.hREF1_sl8_tdcMult", &T_hms_hREF1_sl8_tdcMult, &b_T_hms_hREF1_sl8_tdcMult);
+   fChain->SetBranchAddress("T.hms.hREF2_sl10_tdc", &T_hms_hREF2_sl10_tdc, &b_T_hms_hREF2_sl10_tdc);
+   fChain->SetBranchAddress("T.hms.hREF2_sl10_tdcMult", &T_hms_hREF2_sl10_tdcMult, &b_T_hms_hREF2_sl10_tdcMult);
+   fChain->SetBranchAddress("T.hms.hREF3_sl5_tdc", &T_hms_hREF3_sl5_tdc, &b_T_hms_hREF3_sl5_tdc);
+   fChain->SetBranchAddress("T.hms.hREF3_sl5_tdcMult", &T_hms_hREF3_sl5_tdcMult, &b_T_hms_hREF3_sl5_tdcMult);
+   fChain->SetBranchAddress("T.hms.hREF4_sl17_tdc", &T_hms_hREF4_sl17_tdc, &b_T_hms_hREF4_sl17_tdc);
+   fChain->SetBranchAddress("T.hms.hREF4_sl17_tdcMult", &T_hms_hREF4_sl17_tdcMult, &b_T_hms_hREF4_sl17_tdcMult);
    fChain->SetBranchAddress("T.hms.hSHWR_adc", &T_hms_hSHWR_adc, &b_T_hms_hSHWR_adc);
+   fChain->SetBranchAddress("T.hms.hSHWR_adcMult", &T_hms_hSHWR_adcMult, &b_T_hms_hSHWR_adcMult);
+   fChain->SetBranchAddress("T.hms.hSHWR_adcPed", &T_hms_hSHWR_adcPed, &b_T_hms_hSHWR_adcPed);
    fChain->SetBranchAddress("T.hms.hSHWR_tdc", &T_hms_hSHWR_tdc, &b_T_hms_hSHWR_tdc);
+   fChain->SetBranchAddress("T.hms.hSHWR_tdcMult", &T_hms_hSHWR_tdcMult, &b_T_hms_hSHWR_tdcMult);
    fChain->SetBranchAddress("T.hms.hT1_tdc", &T_hms_hT1_tdc, &b_T_hms_hT1_tdc);
+   fChain->SetBranchAddress("T.hms.hT1_tdcMult", &T_hms_hT1_tdcMult, &b_T_hms_hT1_tdcMult);
    fChain->SetBranchAddress("T.hms.hT2_tdc", &T_hms_hT2_tdc, &b_T_hms_hT2_tdc);
+   fChain->SetBranchAddress("T.hms.hT2_tdcMult", &T_hms_hT2_tdcMult, &b_T_hms_hT2_tdcMult);
    fChain->SetBranchAddress("fEvtHdr.fEvtTime", &fEvtHdr_fEvtTime, &b_Event_Branch_fEvtHdr_fEvtTime);
    fChain->SetBranchAddress("fEvtHdr.fEvtNum", &fEvtHdr_fEvtNum, &b_Event_Branch_fEvtHdr_fEvtNum);
    fChain->SetBranchAddress("fEvtHdr.fEvtType", &fEvtHdr_fEvtType, &b_Event_Branch_fEvtHdr_fEvtType);

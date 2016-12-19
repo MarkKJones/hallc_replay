@@ -53,6 +53,10 @@ cin >> run_NUM;
      //Create Histograms
      h[ip] = new TH1F(drift_time_histo, title, 200, -50, 350);  //set time to 400 ns/200 bins = 2ns/bin
 }
+	
+	//Create array to store t0 offsets obtained from weighted average of wire drift times	
+	double t_zero_offsets[NPLANES] = {1.555395, 2.587748, 16.426427, 10.402037, 1.930977,
+		11.367103, 20.297142, 15.823863, 22.488513, 22.128999, 13.249682, 22.761445};	
 		
     //Declare number of entries in the tree
     Long64_t nentries = tree->GetEntries(); //number of triggers (particles that passed through all 4 hodo planes)
@@ -69,14 +73,19 @@ cin >> run_NUM;
     
     for(Int_t j=0; j<Ndata[ip]; j++){
 	
-	h[ip]->Fill(hdc_time[ip][j]);  //fill and shift entire histogram by 1525 ns so as to place the histogram rising edge at ~ 0 ns
-       
+	h[ip]->Fill(hdc_time[ip][j] + t_zero_offsets[ip]); //add t0 offset correction 
+       }
+      
+      
+
+			
 	
-   }
+	}
 
 }
 
-}
+
+
 		
 //Write histograms to file
 g->Write();

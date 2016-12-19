@@ -236,6 +236,7 @@ t->SetGrid();
 
 
 TGraphErrors *graph = new TGraphErrors(t_zero_file, "%lg %lg %lg");
+graph->SetName("graph");
 TString title = "DC"+st_DC_plane+": t0 versus sensewire";
 graph->SetTitle(title);
 graph->SetMarkerStyle(20);
@@ -246,8 +247,9 @@ graph->GetXaxis()->CenterTitle();
 graph->GetYaxis()->SetTitle("t-Zero (ns)");
 graph->GetYaxis()->CenterTitle();
 graph->GetYaxis()->SetRangeUser(-50.0, 50.0);
-t->Write(title);   //write to a root file
 graph->Draw("AP");
+t->Update();
+t->Write(title);   //write to a root file
 
 //close dat file
 ofs.close();
@@ -317,7 +319,7 @@ while(getline(ifs, line)) {
 
 // cout << " final_sum_NUM = " << sum_NUM << endl;
  // cout << " final_sum_DEN = " << sum_DEN << endl;
- // cout << "weighted_AVG = " << weighted_AVG << endl;
+  cout << "weighted_AVG = " << weighted_AVG << endl;
 
 ifs.close();
 
@@ -330,7 +332,7 @@ t1->SetGrid();
 TGraphErrors *graph1 = new TGraphErrors(t_zero_file_corr, "%lg %lg %lg");
 graph1->SetName("graph1");
 TString title1 = "hdc"+st_DC_plane+": t0 versus sensewire_corrected";
-graph1->SetTitle(title);
+graph1->SetTitle(title1);
 graph1->SetMarkerStyle(20);
 graph1->SetMarkerColor(1);
 //graph1->GetXaxis()->SetLimits(0., total_wires);
@@ -345,10 +347,15 @@ graph1->GetYaxis()->SetRangeUser(-50.0, 50.0);
   float *x = graph1->GetX();
   double locmin = TMath::LocMin(n,x); 
   double locmax = TMath::LocMax(n,x);
-  
+cout << "n " << n << endl;
+cout << "x is " << &x << endl;
+cout <<  "locmin " << locmin << endl;
+cout <<  "locmax " << locmax << endl; 
 
 //Draw a TLine representing the weighted Average of t0 
- TLine *wght_avg = new TLine(locmin, weighted_AVG, locmax+1, weighted_AVG);
+// TLine *wght_avg = new TLine(locmin, weighted_AVG, locmax, weighted_AVG);
+ TLine *wght_avg = new TLine(0, weighted_AVG, 107, weighted_AVG);
+
   wght_avg->SetLineColor(kRed);
   wght_avg->SetLineWidth(2);
   wght_avg->SetLineStyle(2);
@@ -357,7 +364,7 @@ graph1->GetYaxis()->SetRangeUser(-50.0, 50.0);
 
 //Add text to canvas
 TLatex* ltx1 =  new TLatex();
-ltx1->DrawLatex(locmax/2,40, Form("Weighted Average = %lf #pm %lf ns", weighted_AVG, weighted_AVG_err) );
+ltx1->DrawLatex(60,40, Form("Weighted Average = %lf #pm %lf ns", weighted_AVG, weighted_AVG_err) );
 
 
 

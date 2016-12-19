@@ -25,6 +25,8 @@ TH1F hdc_ref_diff_sl8_10 'HDC reference diff sl8-sl10' T.hms.hREF1_sl8_tdc-T.hms
 TH1F hdc_ref_diff_sl8_5 'HDC reference diff sl8-sl5' T.hms.hREF1_sl8_tdc-T.hms.hREF3_sl5_tdc 600 -300 300
 TH1F hdc_ref_diff_sl8_17 'HDC reference diff sl8-sl17' T.hms.hREF1_sl8_tdc-T.hms.hREF4_sl17_tdc 600 -300 300
 
+TH1F hdc1x1_dist 'HDC 1X1 Drift Distance' H.dc.1x1.dist 84 -0.002 0.502
+
 
 #TH2F hdc1x1_wire_num_vs_raw_tdc 'HDC 1X1 Wiremap; Wire Number; Raw TDC Value (clicks)' H.dc.1x1.wirenum H.dc.1x1.rawtdc 113 0.5 113.5 1400 0 14000
 #TH2F hdc1y1_wire_num_vs_raw_tdc 'HDC 1Y1 Wiremap; Wire Number; Raw TDC Value (clicks)' H.dc.1y1.wirenum H.dc.1y1.rawtdc 52  0.5  52.5 1400 0 14000
