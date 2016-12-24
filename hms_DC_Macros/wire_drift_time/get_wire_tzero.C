@@ -1,3 +1,4 @@
+
 /*Script to extract reference time "t0"  for each sense wire in a given HMS Wire Chamber Plane with COSMIC RUNS.  
 20% (MAX BIN CONTENT) is calculated per wire, and the corresponding bin is fitted linearly about +/- 
 a certain number of bins and this fit is extrapolated to y=0(x-axis). The extrapolated value is take to be t0*/
@@ -194,8 +195,8 @@ double y_int_err;
 double t_zero_err;
 
 //Get time corresponding to bin (fit range) 
-time_init = cell_dt[sensewire-1] -> GetXaxis() -> GetBinCenter(bin_num[0]-10); 
-time_final = cell_dt[sensewire-1] -> GetXaxis() -> GetBinCenter(bin_num[0]+10); 
+time_init = cell_dt[sensewire-1] -> GetXaxis() -> GetBinCenter(bin_num[0]-5); //choose bin range over which to fit
+time_final = cell_dt[sensewire-1] -> GetXaxis() -> GetBinCenter(bin_num[0]+5); 
 
 //Create Fit Function
 TF1* tZero_fit = new TF1("tZero_fit", "[0]*x + [1]", time_init, time_final);
@@ -268,8 +269,8 @@ ofs.close();
   ifs.open (t_zero_file);
   string line;
 
-  //open new data file from the output stream to write updated t0 values
-  TString t_zero_file_corr = "tzero_data/hdc_"+st_DC_plane+Form("tzero_run%d_corr.txt", run);
+  //open new data file to write updated t0 values
+  TString t_zero_file_corr = "tzero_data/hdc_"+st_DC_plane+Form("tzero_run%d_updated.txt", run);
   ofs.open(t_zero_file_corr);
   ofs << " #Wire " << "     " << " t_zero " << "     " << " t_zero_err " << "     " << " entries " << endl; 
 
@@ -282,8 +283,9 @@ ofs.close();
   //set them to zero to start sum inside while loop 
    sum_NUM = 0.0;
    sum_DEN = 0.0;
-   weighted_AVG = 0.0;
-   weighted_AVG_err = 0.0; 
+   
+   weighted_AVG;
+   weighted_AVG_err; 
 
 //read line bt line the t_zero_file
 while(getline(ifs, line)) {
@@ -295,7 +297,7 @@ while(getline(ifs, line)) {
      
     //Check if entries for each sensewire exceeds a certain number of events
     
-      if (entries>300) {
+      if (entries>300 && t_zero < 30) {
 	
       //Calculate the weighted average of t0s
       sum_NUM = sum_NUM + t_zero/(t_zero_err*t_zero_err);
@@ -314,12 +316,22 @@ while(getline(ifs, line)) {
 }
 
 }
+
+
+ 
  weighted_AVG = sum_NUM / sum_DEN;
  weighted_AVG_err = sqrt( 1.0 / sum_DEN );
 
-// cout << " final_sum_NUM = " << sum_NUM << endl;
- // cout << " final_sum_DEN = " << sum_DEN << endl;
-  cout << "weighted_AVG = " << weighted_AVG << endl;
+  //open new data file to write weighted average of updated t_zero values
+  TString t_zero_AVG = Form("tzero_data/tzero_weighted_avg_run%d.txt", run);
+  fstream fs;
+  fs.open(t_zero_AVG, std::ios::app|std::ios::out); //open file in append and output mode
+  fs << " #weighted_AVG " << "     " << " DC plane: " <<  st_DC_plane << endl; 
+  fs << weighted_AVG << endl;
+  
+  
+
+
 
 ifs.close();
 
@@ -341,36 +353,21 @@ graph1->GetXaxis()->CenterTitle();
 graph1->GetYaxis()->SetTitle("t-Zero (ns)");
 graph1->GetYaxis()->CenterTitle();
 graph1->GetYaxis()->SetRangeUser(-50.0, 50.0);
+graph1->Draw("AP");
+t1->Update();
 
-// Get the local Minimum and Maximum of the TGraph  
-  int n = graph1->GetN();
-  float *x = graph1->GetX();
-  double locmin = TMath::LocMin(n,x); 
-  double locmax = TMath::LocMax(n,x);
-cout << "n " << n << endl;
-cout << "x is " << &x << endl;
-cout <<  "locmin " << locmin << endl;
-cout <<  "locmax " << locmax << endl; 
-
-//Draw a TLine representing the weighted Average of t0 
-// TLine *wght_avg = new TLine(locmin, weighted_AVG, locmax, weighted_AVG);
- TLine *wght_avg = new TLine(0, weighted_AVG, 107, weighted_AVG);
-
+// Draw TLine
+TLine *wght_avg = new TLine(t1->GetUxmin(), weighted_AVG, t1->GetUxmax(), weighted_AVG);
   wght_avg->SetLineColor(kRed);
   wght_avg->SetLineWidth(2);
   wght_avg->SetLineStyle(2);
-  graph1->Draw("AP");
   wght_avg->Draw();
-
+  
 //Add text to canvas
 TLatex* ltx1 =  new TLatex();
-ltx1->DrawLatex(60,40, Form("Weighted Average = %lf #pm %lf ns", weighted_AVG, weighted_AVG_err) );
+ltx1->DrawLatex(t1->GetUxmax()*0.75,40, Form("Weighted Average = %lf #pm %lf ns", weighted_AVG, weighted_AVG_err) );
 
-
-
-  t1->Update();  //update canvas
-  t1->Write(title1);   //write canvas to a root file
-
+t1->Write(title1);   //write canvas to a root file
 
 ofs.close();  //close data file
 }

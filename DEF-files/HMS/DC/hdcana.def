@@ -25,7 +25,43 @@ TH1F hdc_ref_diff_sl8_10 'HDC reference diff sl8-sl10' T.hms.hREF1_sl8_tdc-T.hms
 TH1F hdc_ref_diff_sl8_5 'HDC reference diff sl8-sl5' T.hms.hREF1_sl8_tdc-T.hms.hREF3_sl5_tdc 600 -300 300
 TH1F hdc_ref_diff_sl8_17 'HDC reference diff sl8-sl17' T.hms.hREF1_sl8_tdc-T.hms.hREF4_sl17_tdc 600 -300 300
 
-TH1F hdc1x1_dist 'HDC 1X1 Drift Distance' H.dc.1x1.dist 84 -0.002 0.502
+TH1F hdc1x1_dist 'HDC 1X1 Drift Distance' H.dc.1x1.dist 100 -0.1 0.6
+TH1F hdc1x1_dist_cut 'HDC CUT 1X1 Drift Distance' H.dc.1x1.dist 100 -0.1 0.6 time_cut1 
+
+TH1F hdc1y1_dist 'HDC 1Y1 Drift Distance' H.dc.1y1.dist 100 -0.1 0.6  
+TH1F hdc1y1_dist_cut 'HDC CUT 1Y1 Drift Distance' H.dc.1y1.dist 100 -0.1 0.6 time_cut2 
+
+TH1F hdc1u1_dist 'HDC 1U1 Drift Distance' H.dc.1u1.dist 100 -0.1 0.6  
+TH1F hdc1u1_dist_cut 'HDC CUT 1U1 Drift Distance' H.dc.1u1.dist 100 -0.1 0.6 time_cut3 
+
+TH1F hdc1v1_dist 'HDC 1V1 Drift Distance' H.dc.1v1.dist 100 -0.1 0.6  
+TH1F hdc1v1_dist_cut 'HDC CUT 1V1 Drift Distance' H.dc.1v1.dist 100 -0.1 0.6 time_cut4 
+
+TH1F hdc1y2_dist 'HDC 1Y2 Drift Distance' H.dc.1y2.dist 100 -0.1 0.6  
+TH1F hdc1y2_dist_cut 'HDC CUT 1Y2 Drift Distance' H.dc.1y2.dist 100 -0.1 0.6 time_cut5 
+
+TH1F hdc1x2_dist 'HDC 1X2 Drift Distance' H.dc.1x2.dist 100 -0.1 0.6  
+TH1F hdc1x2_dist_cut 'HDC CUT 1X2 Drift Distance' H.dc.1x2.dist 100 -0.1 0.6 time_cut6 
+
+TH1F hdc2x1_dist 'HDC 2X1 Drift Distance' H.dc.2x1.dist 100 -0.1 0.6  
+TH1F hdc2x1_dist_cut 'HDC CUT 2X1 Drift Distance' H.dc.2x1.dist 100 -0.1 0.6 time_cut7 
+
+TH1F hdc2y1_dist 'HDC 2Y1 Drift Distance' H.dc.2y1.dist 100 -0.1 0.6
+TH1F hdc2y1_dist_cut 'HDC CUT 2Y1 Drift Distance' H.dc.2y1.dist 100 -0.1 0.6 time_cut8 
+
+TH1F hdc2u1_dist 'HDC 2U1 Drift Distance' H.dc.2u1.dist 100 -0.1 0.6
+TH1F hdc2u1_dist_cut 'HDC CUT 2U1 Drift Distance' H.dc.2u1.dist 100 -0.1 0.6 time_cut9 
+
+TH1F hdc2v1_dist 'HDC 2V1 Drift Distance' H.dc.2v1.dist 100 -0.1 0.6  
+TH1F hdc2v1_dist_cut 'HDC CUT 2V1 Drift Distance' H.dc.2v1.dist 100 -0.1 0.6 time_cut10 
+
+TH1F hdc2y2_dist 'HDC 2Y2 Drift Distance' H.dc.2y2.dist 100 -0.1 0.6
+TH1F hdc2y2_dist_cut 'HDC CUT 2Y2 Drift Distance' H.dc.2y2.dist 100 -0.1 0.6 time_cut11 
+
+TH1F hdc2x2_dist 'HDC 2X2 Drift Distance' H.dc.2x2.dist 100 -0.1 0.6
+TH1F hdc2x2_dist_cut 'HDC CUT 2X2 Drift Distance' H.dc.2x2.dist 100 -0.1 0.6 time_cut12
+
+
 
 
 #TH2F hdc1x1_wire_num_vs_raw_tdc 'HDC 1X1 Wiremap; Wire Number; Raw TDC Value (clicks)' H.dc.1x1.wirenum H.dc.1x1.rawtdc 113 0.5 113.5 1400 0 14000
