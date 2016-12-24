@@ -33,7 +33,7 @@ void get_LookUp_Values() {
 
  //Create an output file to store lookup values  
 ofstream ofs;
-TString lookup_table = Form("hdriftmap_fix2y2_run%d.param", run_NUM);
+TString lookup_table = "../../PARAM/HMS/DC/hdriftmap.param";
 ofs.open (lookup_table);
 
 
@@ -42,15 +42,15 @@ ofs.open (lookup_table);
  ofs << "; number of bins in Carlos's time to distance lookup table" << "\n";
  ofs << Form("hdriftbins = %d", TOTAL_BINS+1) << "\n";
  ofs << "; number of 1st bin in Carlos's table in ns" << "\n";
- ofs << "hdrift1stbi=0" << "\n";
+ ofs << "hdrift1stbin=0" << "\n";
  ofs << "; bin size in ns" << "\n";
  ofs << "hdriftbinsz=2" << "\n";
   	
  //Loop over each plane of HMS Drift Chambers (DC1 & DC2)
  for (int ip=0; ip<NPLANES; ip++){
 
-  TString drift_time_histo = "hdc"+plane_names[ip]+"_time"; 
- 
+  TString drift_time_histo = "hdc"+plane_names[ip]+"_time: t0_corr"; 
+
   //Get drift time histograms from root file
   h[ip] = (TH1F*)f->Get(drift_time_histo);
 

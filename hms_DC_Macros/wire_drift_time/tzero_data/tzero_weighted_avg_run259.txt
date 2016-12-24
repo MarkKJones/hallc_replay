@@ -1,0 +1,24 @@
+ #weighted_AVG       DC plane: 1x1
+2.81487
+ #weighted_AVG       DC plane: 1y1
+0.121628
+ #weighted_AVG       DC plane: 1u1
+-9.3915
+ #weighted_AVG       DC plane: 1v1
+-5.01126
+ #weighted_AVG       DC plane: 1y2
+0.68171
+ #weighted_AVG       DC plane: 1x2
+-6.22656
+ #weighted_AVG       DC plane: 2x1
+-13.7206
+ #weighted_AVG       DC plane: 2y1
+-10.7793
+ #weighted_AVG       DC plane: 2u1
+-15.823
+ #weighted_AVG       DC plane: 2v1
+-16.9767
+ #weighted_AVG       DC plane: 2y2
+-8.16434
+ #weighted_AVG       DC plane: 2x2
+-16.1639

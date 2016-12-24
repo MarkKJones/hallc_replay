@@ -91,7 +91,7 @@ for (int sensewire=1; sensewire<=total_wires; sensewire++) {
 cell_dt[sensewire-1] = new TH1F(Form("wire_%d", sensewire), "", 200., -50., 350.);
 
 //Loop over nentries (# of triggers detected by DC)
-   Long64_t nbytes = 0, nb = 0;
+   //Long64_t nbytes = 0, nb = 0;
 
    for (Long64_t jentry=0; jentry<nentries; jentry++) {
       Long64_t ientry = LoadTree(jentry);

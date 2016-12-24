@@ -1,0 +1,36 @@
+5) Create a lookup table (hdriftmap.param) of values for each plane
+   based on integratig the "t0" corrected drift time spectra for each
+   plane.
+
+   HOW ARE THE LOOKUP VALUES CALCULATED FOR EACH PLANE?
+   
+   Each drift time corresponds to a drift distance. The lookup values
+   are conversion factors between the two quantities. The lookup values
+   are calculated on a bin-by-bin basis from the "t0"-corrected drift distance
+   spectra. For each bin in the drift time spectra, starting from the bin
+   corresponding to "t0" (0 ns), up to a certain maximum bin, 
+
+    lookup value [ith bin] = ith bin Content / total bin content 
+
+   where the total bin content is the sum of all bin contents from
+   t0_bin to maximum bin. 
+
+To produce the lookup table, on the terminal run ... 
+
+    >> root -l get_LookUp_Values.C   
+   
+     OUTPUT FILE: ../../PARAM/HMS/DC/hdriftmap.param
+
+6) Run the hallc_replay script on the raw data file.
+
+After updating the hdc.param (ster 3) and the hdriftmap.param (step 5)
+files, run the hallc_replay script on the test_xx.dat file again to
+produce an updated root file.
+
+***IMPORTANT: Make sure to change the name of the output root file in
+the hallc_replay script so that it does nor overwrite the previous root
+file, and be able to compare histograms from both.
+
+
+
+

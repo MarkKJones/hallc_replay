@@ -1,33 +1,31 @@
 ;---------------------------------------------------------------------
 ; HMS_TRACKING
-; CTP parameter file containing all tracking parameters for the HMS
+; CTP parameter file containing all tracking parameters for the HMS 
 ;----------------------------------------------------------------------
-; sigma of wire chamber resolution for each plane
-      hdc_sigma = 0.020
-                  0.020
-                  0.020
-                  0.020
-                  0.020
-                  0.020
-                  0.020
-                  0.020
-                  0.020
-                  0.020
-                  0.020
-                  0.020
-  hdc_tdc_min_win = -25000,-25000,-25000,-25000,-25000,-25000
-  		    -25000,-25000,-25000,-25000,-25000,-25000
-  hdc_tdc_max_win = 25000,25000,25000,25000,25000,25000
-                    25000,25000,25000,25000,25000,25000
-; hms drift chamber tdc's time per channel
-        hdc_tdc_time_per_channel = -0.10
-; hms zero time for drift chambers	!DECREASING this number moves the hdtime plots to LOWER time.
-   hdc_plane_time_zero = 1301.5553,1302.5877,1316.4264,1310.402,1301.9309,1311.3671
-  		        1320.2971,1315.8238,1322.4885,1322.1289,1313.2496,1322.7614
+; sigma of wire chamber resolution for each plane 
+ hdc_sigma = 0.020 
+             0.020
+             0.020
+             0.020
+             0.020
+             0.020
+             0.020
+             0.020
+             0.020
+             0.020
+             0.020
+             0.020
+  hdc_tdc_min_win = -25000,-25000,-25000,-25000,-25000,-25000 
+  		    -25000,-25000,-25000,-25000,-25000,-25000 
+  hdc_tdc_max_win = 25000,25000,25000,25000,25000,25000 
+                    25000,25000,25000,25000,25000,25000 
+; hms drift chamber tdc's time per channel 
+        hdc_tdc_time_per_channel = -0.10 
+; hms zero time for drift chambers	!DECREASING this number moves the hdtime plots to LOWER time. 
+hdc_plane_time_zero =  1297.19,1299.88,1309.39,1305.01,1299.32,1306.23,
+1313.72,1310.78,1315.82,1316.98,1308.16,1316.16
 
-; Dave Abbott's wire velocity correction
-hdc_wire_velocity = 12.0
-hdc_central_time = 7,9,3,4,6,5
+; Dave Abbott's wire velocity correction 
+hdc_wire_velocity = 12.0 
+hdc_central_time = 7,9,3,4,6,5 
                    7,5,3,4,6,6
-
-
