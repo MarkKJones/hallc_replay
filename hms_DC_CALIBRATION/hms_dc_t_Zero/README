@@ -1,0 +1,33 @@
+0) Add average drift time distributions per plane to root file 
+   
+    - get_hdc_time_histo.C : reads ROOTfiles/test_xx.root and
+                             loops over all entries to fill
+                             drift time histos and writes them
+                             to hms_dc_time_xx.root
+
+    FOR NEXT STEP, GO TO 'wire_drift_time' directory
+
+                                    
+**********************************************************************
+
+... After step (3)...
+
+4) Add the "t0" correction to the drift time spectra obtained in step (0)
+   using the following script:
+ 
+     -get_hdc_time_histo_tzero_corrected.C
+
+    This scipt fills the drift time histos directly from the root file
+    test_xx.root and adds the weighted "t0" values to each plane. The
+    t0-corrected histos are saved in the same root file produced in step(0).
+   
+    The t0 correction can be seen visually by superimposing the drift time 
+    from all twelve planes before and after applying the correction. The
+    before and after correction histos should be drawn in different colors
+    in order to actually see the correction effect.
+
+For next step, open README file in ...
+   >> cd ../get_LookUp_Table/
+ ...
+
+*****************************************************************************
