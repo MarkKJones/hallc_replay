@@ -55,7 +55,7 @@ int total_wires;  //integer to store total sense wires for a plane chosen by the
 for (int ip = 0; ip < NPLANES; ip++){
 
 //Initialize a root file array to store individual DC cell drift times
-root_file[ip] = "hms_DC_"+plane_names[ip]+Form("_%d.root", run);
+root_file[ip] = "root_files/"+Form("run_%d", run)+"/hms_DC_"+plane_names[ip]+Form("_%d.root", run);
 g[ip] = new TFile(root_file[ip], "RECREATE");
 g[ip]->cd();
 
