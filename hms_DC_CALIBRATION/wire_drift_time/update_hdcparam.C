@@ -96,7 +96,7 @@ ofstream ofs(tzero_dat);
 
 for (int i=0; i<12; i++) 
 {
-ofs  <<  tzero[i]  << endl;; 
+ofs  <<  tzero[i]  << endl; 
 }
 
 }
