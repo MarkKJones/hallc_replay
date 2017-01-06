@@ -1,4 +1,5 @@
 
+
 /*Script to extract reference time "t0"  for each sense wire in a given HMS Wire Chamber Plane with COSMIC RUNS.  
 20% (MAX BIN CONTENT) is calculated per wire, and the corresponding bin is fitted linearly about +/- 
 a certain number of bins and this fit is extrapolated to y=0(x-axis). The extrapolated value is take to be t0*/
@@ -6,47 +7,52 @@ a certain number of bins and this fit is extrapolated to y=0(x-axis). The extrap
 #include <vector>
 #include <TMath>
 
+#define NPLANES 12
+
 void get_wire_tzero()
 {
 
-//Declare user-input variables 
-string st_DC_num;
-string st_plane;
 int run;
-
-//prompt user for input
-cout << "Enter RUN Number: ";
+//Promt User for Input
+cout << "Enter Run Number: ";
 cin >> run;
-cout << "Enter HMS Drift Chamber to get t-Zero (type 1 or 2): ";
-cin >> st_DC_num;
-cout << "Enter Plane to get t-Zero: (type x1 y1 u1 v1 y2 x2 ) ";
-cin >> st_plane;
 
- string st_DC_plane = st_DC_num+st_plane;
- string run_NUM = Form("run_%d", run);
- 
- //Open root file containing drift time histos
-TString root_file = "root_files/"+ run_NUM +"/hms_DC_"+st_DC_plane+Form("_%d.root",run);
-TFile *f = new TFile(root_file,"READ");
- 
+TString run_NUM = "run_259";
+
+//Declare plane names to loop over
+TString plane_names[NPLANES]={"1x1", "1y1", "1u1", "1v1", "1y2", "1x2", "2x1", "2y1", "2u1", "2v1", "2y2", "2x2"};
+
+//Declare a root file array to store individual DC cell drift times
+TString root_file;
+TFile *f[NPLANES];
+   
+int total_wires;  //integer to store total sense wires for a plane chosen by the user
+        
+//Loop over all planes
+for (int ip = 0; ip < NPLANES; ip++){
+
+//READ root file
+root_file = "root_files/"+run_NUM+"/hms_DC_"+plane_names[ip]+Form("_%d.root",run);
+f[ip] = new TFile(root_file, "READ");
+
 //Create a file output file stream object to write t0 values to data file
 ofstream ofs;
-TString t_zero_file = "tzero_data/hdc_"+st_DC_plane+Form("tzero_run%d.txt", run);
+TString t_zero_file = "tzero_data/hdc_"+plane_names[ip]+Form("tzero_run%d.txt", run);
 ofs.open (t_zero_file);
 
 //Set headers for subsequent columns of data
  ofs << "#WIRE " << "   "  << "t0" << "   " << "t0_err" << "   " << " entries " << endl;
 
 //Create root file to store fitted wire drift times histos and "t0 vs. wirenum"
-TString output_root_file = "root_files/"+run_NUM+"/hmsDC_"+st_DC_plane+Form("run%d_saved_histos.root", run);
+TString output_root_file = "root_files/"+run_NUM+"/hmsDC_"+plane_names[ip]+Form("run%d_saved_histos.root", run);
 TFile *g = new TFile(output_root_file,"RECREATE");
 
-f->cd();  //change to file containing the wire drift times histos
+f[ip]->cd();  //change to file containing the wire drift times histos
  
 int total_wires;  //integer to store total sense wires for a plane chosen by the user
    
-//compare the user input string to desired planes in order to create TH1F and TH2F accordingly
-if (st_plane.compare("x1")==0 || st_plane.compare("x2")==0) {  
+//Set variables depending on which plane is being studied
+if (ip == 0 || ip == 5 || ip == 6 || ip == 11) {  
 TH1F *cell_dt[113]; //declare array of histos to store drift times     
 total_wires=113; 
 
@@ -60,27 +66,27 @@ double ref_time[113];               /*Array to store reference times for each se
 
        }
 
-else if (st_plane.compare("u1")==0 || st_plane.compare("v1")==0) {
+else if (ip == 2 || ip == 3 || ip == 8 || ip == 9) {
 TH1F *cell_dt[107];
 total_wires=107;      
    
 int bin_max[107];                                 
 int bin_maxContent[107];                           
-int time_max[107];                               
+double time_max[107];                               
 double twenty_perc_maxContent[107];                
-int ref_time[107];          
+double ref_time[107];          
 
        }	   
  
-else if (st_plane.compare("y1")==0 || st_plane.compare("y2")==0) {
+else if (ip == 1 || ip == 4 || ip == 7 || ip == 10) {
 TH1F *cell_dt[52];
 total_wires=52;
 
 int bin_max[52];                                 
 int bin_maxContent[52];                           
-int time_max[52];                               
+double time_max[52];                               
 double twenty_perc_maxContent[52];                
-int ref_time[52];          
+double ref_time[52];          
 
        }	 
     
@@ -94,7 +100,7 @@ for (int sensewire=1; sensewire<=total_wires; sensewire++){
 TString drift_time_histo = Form("wire_%d", sensewire); 
  
 //Get drift time histograms from root file
-cell_dt[sensewire-1] = (TH1F*)f->Get(drift_time_histo);
+cell_dt[sensewire-1] = (TH1F*)f[ip]->Get(drift_time_histo);
 
 
 //Get bin with Maximum Content
@@ -238,7 +244,7 @@ t->SetGrid();
 
 TGraphErrors *graph = new TGraphErrors(t_zero_file, "%lg %lg %lg");
 graph->SetName("graph");
-TString title = "DC"+st_DC_plane+": t0 versus sensewire";
+TString title = "DC"+plane_names[ip]+": t0 versus sensewire";
 graph->SetTitle(title);
 graph->SetMarkerStyle(20);
 graph->SetMarkerColor(1);
@@ -255,7 +261,7 @@ t->Write(title);   //write to a root file
 //close dat file
 ofs.close();
 //save plots
-//TString tzero_plots = "plots/"+run_NUM +"/hdc"+st_DC_plane+Form("TESTING_tzero_v_wire_%d.eps", run);
+//TString tzero_plots = "plots/"+run_NUM +"/hdc"+plane_names[ip]+Form("TESTING_tzero_v_wire_%d.eps", run);
 //t->SaveAs(tzero_plots);
 
 
@@ -270,7 +276,7 @@ ofs.close();
   string line;
 
   //open new data file to write updated t0 values
-  TString t_zero_file_corr = "tzero_data/hdc_"+st_DC_plane+Form("tzero_run%d_updated.txt", run);
+  TString t_zero_file_corr = "tzero_data/hdc_"+plane_names[ip]+Form("tzero_run%d_updated.txt", run);
   ofs.open(t_zero_file_corr);
   ofs << " #Wire " << "     " << " t_zero " << "     " << " t_zero_err " << "     " << " entries " << endl; 
 
@@ -326,7 +332,7 @@ while(getline(ifs, line)) {
   TString t_zero_AVG = Form("tzero_data/tzero_weighted_avg_run%d.txt", run);
   fstream fs;
   fs.open(t_zero_AVG, std::ios::app|std::ios::out); //open file in append and output mode
-  fs << " #weighted_AVG " << "     " << " DC plane: " <<  st_DC_plane << endl; 
+  fs << " #weighted_AVG " << "     " << " DC plane: " <<  plane_names[ip] << endl; 
   fs << weighted_AVG << endl;
   
   
@@ -340,10 +346,10 @@ ifs.close();
 TCanvas *t1 = new TCanvas("t1", "", 2000,500);
 t1->SetGrid();
 
-//TString mygraph = "hdc"+st_DC_plane+Form("_t_zero_run%d.txt", run);
+//TString mygraph = "hdc"+plane_names[ip]+Form("_t_zero_run%d.txt", run);
 TGraphErrors *graph1 = new TGraphErrors(t_zero_file_corr, "%lg %lg %lg");
 graph1->SetName("graph1");
-TString title1 = "hdc"+st_DC_plane+": t0 versus sensewire_corrected";
+TString title1 = "hdc"+plane_names[ip]+": t0 versus sensewire_corrected";
 graph1->SetTitle(title1);
 graph1->SetMarkerStyle(20);
 graph1->SetMarkerColor(1);
@@ -370,4 +376,21 @@ ltx1->DrawLatex(t1->GetUxmax()*0.75,40, Form("Weighted Average = %lf #pm %lf ns"
 t1->Write(title1);   //write canvas to a root file
 
 ofs.close();  //close data file
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
 }
