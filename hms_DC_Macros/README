@@ -1,0 +1,42 @@
+**********************************************************************
+*             HMS DRIFT CHAMBERS CALIBRATION PROCEDURES              *
+*								     *
+*                         Author: Carlos Yero                        *
+*                       Date: December 23, 2016                      *
+*                                                                    *
+**********************************************************************
+
+The Drift Chambers calibration procedures SUMMARY:
+0) Add average drift time distributions per plane to root file 
+
+1) Get individual sense wire drift time distribution per plane
+
+2) Extract the "t0" value on a wire-by-wire basis, calculate
+   the "t0" weighted average and assign it to the plane in question
+
+3) Add the weighted "t0" values to the 'h_drifttime_offsets'  in the
+   hdc.param file 
+
+4) Add the "t0" correction to the drift time spectra obtained in step (0)
+
+5) Create a lookup table (hdriftmap.param) of values for each plane 
+   based on integratig the "t0" corrected drift time spectra for each 
+   plane.
+
+6) Run the hallc_replay script on the raw data file, having updated
+   the hdc.param and hdriftmap.param files. 
+
+NOTE: The root file produced should have the updated drift distance 
+      spectra corresponding to the changes made in the parameter files.
+      
+
+***************************IMPORTANT****************************
+A detailed explanation of each step is given in the directories
+pertaining to the drift chamber calibration. (SEE README files) 
+-- Look in the 'hms_dc_t_Zero' directory  to START
+****************************************************************
+
+
+
+
+

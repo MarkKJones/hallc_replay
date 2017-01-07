@@ -1,0 +1,92 @@
+1) Get individual sense wire drift time distribution per plane
+
+   - MakeClass() was used on ROOTfiles/test_xx.root to produce the files: (ONLY DONE IN ONE RUN AND CAN BE USED IN OTHER RUNS)
+             wire_drift_times.C 
+             wire_drift_times.h
+    These files will serve as a skeleton for further analysis
+    The wire_drift_times.C is executed as follows:
+        On terminal type:              
+               >> root -l
+               >> .L wire_drift_times.C
+               >> wire_drift_times t
+               >> t.Loop()
+     The code will prompt the user to enter the run number. Once done,
+     root files for individual planes will be produced in the  
+     directory ...  | 
+                    V
+     OUTPUT ROOT FILE : root_files/run_259/hms_DC_1x1_259.root    //example  
+     The root file will contain saved individual sense wire drift time
+     histos for the given plane, and a 2D histo: sense_wires vs. drift_time
+     
+
+2) Extract the "t0" value on a wire-by-wire basis, calculate
+   the "t0" weighted average and assign it to the plane in question
+     
+     WHAT IS "t0"? 
+     The "t0" is defined as the time corresponding to when the ionized
+     charged particle has drifted and is in contact with the sense wire.
+     The "t0" corresponds to the physical location in the histo where the
+     particle comes in contact with the wire. If its value is anything other
+     than zero nanoseconds (0 ns), it is interpreted as the value by which the
+     drift time must be shifted in order to align the "t0" with 0 ns. For example,
+     if t0 = -3 ns, the drift time histo must be shifted by +3 ns. These "t0" are small 
+     corrections that must be applied to each plane. All later times in each drift time spectra 
+     are measured relative to this time, for each plane. 
+  
+     HOW TO CALCULATE "t0"? 
+     The "t0" for each plane is determined by calculating the "t0" for individual wires
+     in each plane and taking a weighted average. The "t0" for individual sense wires
+     is determined by doing a linear fit at around 20%(Peak) +/- #bins for each sense wire
+     drift time histo.The number of bins in which to include the fit is left to the user to 
+     decide based on the characteristics of each wire drift time. The linear fit is then
+     extrapolated to the horizontal axis (drift time), and this extrapolated value is called "t0".
+     For the X,X', U, and V planes, cosmic flux is position-dependent, so the upper region of the
+     drift chamber have lower cosmic acceptacne(more cosmics coming normal to the ground that at an angle), 
+     leading to smaller number of events. This would cause a degradation in the quality of the fit 
+     in some wires, since not enough events are accumulated, and would lead to an inaccurate representation 
+     of the physics taking place in the chambers. To overcome this problem, we required the total number of
+     events to exceed 300 (>300 events) per wire, and took the weighted average of the "t0" values that met
+     this condition. 
+     
+     The following code uses the OUTPUT ROOT FILE mentioned in step (1) to calculate "t0" on a wire basis: 
+     Typing on the terminal
+                 >> root -l get_wire_tzero.C
+     will prompt the user to enter run number. The user must also modify the variable 'run_NUM' in this code for 
+    each run. For each plane (say 1x1), the code will produce 
+     the following output files:
+
+                   OUTPUT FILE: tzero_data/hdc_1x1tzero_run259.txt 
+                   CONTENT: calculated "t0" and its error per wire for all 
+                            wires in a plane.
+                  
+                   OUTPUT FILE: root_files/run_259/hmsDC_1x1run259_saved_histos.root
+                   CONTENT: fitted drift time spectra per wire and  two "t0"
+                            vs wire plots: one for all wires, and the other 
+                            for wires only exceeding 300 entries.
+
+                   OUTPUT FILE: tzero_data/hdc_1x1tzero_run259_updated.txt
+                   CONTENT: calculated "t0" and its error for wires
+                            exceeding 300 entries.                   
+
+                   OUTPUT FILE: tzero_data/tzero_weighted_avg_run259.txt
+                   CONTENT: calculated "t0" weighted average for
+                            the plane in question.
+
+3) Add the weighted "t0" values to the LINE 'hdc_plane_time_zero = '  in the
+   hdc.param file
+
+           The following code updates the hdc.param file and creates
+           a tzero.dat file without the commented lines:
+                    >> root -l update_hdcparam.C
+           
+                   OUTPUT FILE: ../../PARAM/HMS/DC/hdc.param
+                   CONTENT: parameter file with added "t0" correction
+
+                   OUTPUT FILE: ../hms_dc_t_Zero/tzero.dat
+                   CONTENT: data file containing weighted average "t0"
+                   without the comment lines found in tzero_weighted_avg_run259.txt
+
+
+For the next step, go to ...
+      >> ../hms_dc_t_Zero 
+                and open the README file ....
