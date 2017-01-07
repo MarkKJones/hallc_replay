@@ -52,256 +52,155 @@ int total_wires;  //integer to store total sense wires for a plane chosen by the
    Long64_t nbytes = 0, nb = 0;
    
 //Loop over all planes
-for (int ip = 0; ip < NPLANES; ip++){
-
-//Initialize a root file array to store individual DC cell drift times
-root_file[ip] = "root_files/"+Form("run_%d", run)+"/hms_DC_"+plane_names[ip]+Form("_%d.root", run);
-g[ip] = new TFile(root_file[ip], "RECREATE");
-g[ip]->cd();
-
-/*========================PLANES 1X1,1X2,2X1,2X2=====================================*/
-	
-	//If specific planes are encountered, treat them as follows:
-	
+   TString run_dir="root_files/";
+      run_dir = run_dir+Form("run_%d", run);
+  if (gSystem->mkdir(run_dir)==0) {
+   cout << " Created directory = " << run_dir << endl; 
+   } else{
+   cout << " Directory = " << run_dir << endl; 
+  }
+// Create 
+	TH1F *cell_dt_x[4][113];    
+	TH1F *cell_dt_y[4][52];    
+	TH1F *cell_dt_uv[4][107];    
+	TH2F *wire_vs_dt[12];
+        Int_t ix=0,iy=0,iuv=0;
+ for (int ip = 0; ip < NPLANES; ip++){	
 	if(ip==0 || ip==5 || ip==6 || ip==11) {
-
 	total_wires = 113;
-	TH1F *cell_dt[113];    
-    TH2F *wire_vs_dt = new TH2F("wire_vs_dt", "", 200., -50., 350., 113., 0.,113.);
-    
+        for (int wirenum=1; wirenum<=total_wires; wirenum++){
+ 	  cell_dt_x[ix][wirenum-1] = new TH1F(Form("pl_%s_wire_%d",plane_names[ip].Data(), wirenum), "", 200., -50., 350.);
+         }
+        ix++;
+	wire_vs_dt[ip] = new TH2F(Form("pl_%s_wire_vs_dt",plane_names[ip].Data()), "", 200., -50., 350., 113., 0.,113.);
+	}
+	if(ip==2 || ip==3 || ip==8 || ip==9) {
+	total_wires = 107;
+        for (int wirenum=1; wirenum<=total_wires; wirenum++){
+	  cell_dt_uv[iuv][wirenum-1] = new TH1F(Form("pl_%s_wire_%d",plane_names[ip].Data(), wirenum), "", 200., -50., 350.);
+         }
+	iuv++;
+	wire_vs_dt[ip] = new TH2F(Form("pl_%s_wire_vs_dt",plane_names[ip].Data()), "", 200., -50., 350., 107., 0.,107.);
+	}
+	if(ip==1 || ip==4 || ip==7 || ip==10) {
+	total_wires = 52;
+        for (int wirenum=1; wirenum<=total_wires; wirenum++){
+	  cell_dt_y[iy][wirenum-1] = new TH1F(Form("pl_%s_wire_%d",plane_names[ip].Data(), wirenum), "", 200., -50., 350.);
+        }
+	iy++;
+	wire_vs_dt[ip] = new TH2F(Form("pl_%s_wire_vs_dt",plane_names[ip].Data()), "", 200., -50., 350., 52., 0.,52.);
+	}
+   }
     //Initialize wire drift time histograms
-    for (int wirenum=1; wirenum<=total_wires; wirenum++){
-	cell_dt[wirenum-1] = new TH1F(Form("wire_%d", wirenum), "", 200., -50., 350.);
-     }
 	
        //Loop over all entries (triggers or events)   
-    for (Long64_t jentry=0; jentry<nentries; jentry++) {
-      Long64_t ientry = LoadTree(jentry);
+     for (Long64_t jentry=0; jentry<nentries; jentry++) {
+       Long64_t ientry = LoadTree(jentry);
+       if (jentry%10000 == 0) cout << " entry = " << jentry << endl;
+       //  cout << " entry = " << jentry << endl;
       if (ientry < 0) break;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
       // if (Cut(ientry) < 0) continue;
  
- if (ip==0) {
-    for (int i=0; i< Ndata_H_dc_1x1_wirenum; i++){
+   for (int i=0; i< Ndata_H_dc_1x1_wirenum; i++){
        wirenum = int(H_dc_1x1_wirenum[i]);
-      //cout << " wire num: " << H_dc_1x1_wirenum[i] << endl;
-	  //cout << "Time: " << H_dc_1x1_time[i] << endl;
-
-      //Fill the Histograms
-     cell_dt[wirenum-1]->Fill(H_dc_1x1_time[i]);
-     wire_vs_dt->Fill(H_dc_1x1_time[i], H_dc_1x1_wirenum[i]);
-
-				}
-			}
-							
-	 if (ip==5) {
-    for (int i=0; i< Ndata_H_dc_1x2_wirenum; i++){
+     cell_dt_x[0][wirenum-1]->Fill(H_dc_1x1_time[i]);
+     wire_vs_dt[0]->Fill(H_dc_1x1_time[i], H_dc_1x1_wirenum[i]);
+    }
+   for (int i=0; i< Ndata_H_dc_1x2_wirenum; i++){
        wirenum = int(H_dc_1x2_wirenum[i]);
-      //cout << " wire num: " << H_dc_1x2_wirenum[i] << endl;
-	  //cout << "Time: " << H_dc_1x2_time[i] << endl;
-
-      //Fill the Histograms
-     cell_dt[wirenum-1]->Fill(H_dc_1x2_time[i]);
-     wire_vs_dt->Fill(H_dc_1x2_time[i], H_dc_1x2_wirenum[i]);
-
-				}
-			}						
-			
-		 if (ip==6) {
+      cell_dt_x[1][wirenum-1]->Fill(H_dc_1x2_time[i]);
+     wire_vs_dt[5]->Fill(H_dc_1x2_time[i], H_dc_1x2_wirenum[i]);
+   }						
     for (int i=0; i< Ndata_H_dc_2x1_wirenum; i++){
        wirenum = int(H_dc_2x1_wirenum[i]);
-      //cout << " wire num: " << H_dc_2x1_wirenum[i] << endl;
-	  //cout << "Time: " << H_dc_2x1_time[i] << endl;
-
-      //Fill the Histograms
-     cell_dt[wirenum-1]->Fill(H_dc_2x1_time[i]);
-     wire_vs_dt->Fill(H_dc_2x1_time[i], H_dc_2x1_wirenum[i]);
-
-				}
-			}		
-			
-		if (ip==11) {
-    for (int i=0; i< Ndata_H_dc_2x2_wirenum; i++){
+     cell_dt_x[2][wirenum-1]->Fill(H_dc_2x1_time[i]);
+     wire_vs_dt[6]->Fill(H_dc_2x1_time[i], H_dc_2x1_wirenum[i]);
+   }		
+   for (int i=0; i< Ndata_H_dc_2x2_wirenum; i++){
        wirenum = int(H_dc_2x2_wirenum[i]);
-      //cout << " wire num: " << H_dc_2x2_wirenum[i] << endl;
-	  //cout << "Time: " << H_dc_2x2_time[i] << endl;
-
-      //Fill the Histograms
-     cell_dt[wirenum-1]->Fill(H_dc_2x2_time[i]);
-     wire_vs_dt->Fill(H_dc_2x2_time[i], H_dc_2x2_wirenum[i]);
-
-				}
-			}						
-					
-					
-					
-					}
-					}
-					
-	/*PLANE 1U1, 1V1, 2U1, 2V1*/				
-	//If specific planes are encountered, treat them as follows:
-	if(ip==2 || ip==3 || ip==8 || ip==9) {
-
-	total_wires = 107;
-	TH1F *cell_dt[107];    
-    TH2F *wire_vs_dt = new TH2F("wire_vs_dt", "", 200., -50., 350., 107., 0.,107.);
-    
-    //Initialize wire drift time histograms
-    for (int wirenum=1; wirenum<=total_wires; wirenum++){
-	cell_dt[wirenum-1] = new TH1F(Form("wire_%d", wirenum), "", 200., -50., 350.);
+      cell_dt_x[3][wirenum-1]->Fill(H_dc_2x2_time[i]);
+     wire_vs_dt[11]->Fill(H_dc_2x2_time[i], H_dc_2x2_wirenum[i]);
+   }						
+      for (int i=0; i< Ndata_H_dc_1u1_wirenum; i++){
+     wirenum = int(H_dc_1u1_wirenum[i]);
+     cell_dt_uv[0][wirenum-1]->Fill(H_dc_1u1_time[i]);
+     wire_vs_dt[2]->Fill(H_dc_1u1_time[i], H_dc_1u1_wirenum[i]);
      }
-	
-       //Loop over all entries (triggers or events)   
-    for (Long64_t jentry=0; jentry<nentries; jentry++) {
-      Long64_t ientry = LoadTree(jentry);
-      if (ientry < 0) break;
-      nb = fChain->GetEntry(jentry);   nbytes += nb;
-      // if (Cut(ientry) < 0) continue;
- 
- if (ip==2) {
-    for (int i=0; i< Ndata_H_dc_1u1_wirenum; i++){
-       wirenum = int(H_dc_1u1_wirenum[i]);
-      //cout << " wire num: " << H_dc_1u1_wirenum[i] << endl;
-	  //cout << "Time: " << H_dc_1u1_time[i] << endl;
-
-      //Fill the Histograms
-     cell_dt[wirenum-1]->Fill(H_dc_1u1_time[i]);
-     wire_vs_dt->Fill(H_dc_1u1_time[i], H_dc_1u1_wirenum[i]);
-
-				}
-			}
-							
-	 if (ip==3) {
-    for (int i=0; i< Ndata_H_dc_1v1_wirenum; i++){
+  for (int i=0; i< Ndata_H_dc_1v1_wirenum; i++){
        wirenum = int(H_dc_1v1_wirenum[i]);
-      //cout << " wire num: " << H_dc_1v1_wirenum[i] << endl;
-	  //cout << "Time: " << H_dc_1v1_time[i] << endl;
-
-      //Fill the Histograms
-     cell_dt[wirenum-1]->Fill(H_dc_1v1_time[i]);
-     wire_vs_dt->Fill(H_dc_1v1_time[i], H_dc_1v1_wirenum[i]);
-
-				}
-			}						
-			
-		 if (ip==8) {
-    for (int i=0; i< Ndata_H_dc_2u1_wirenum; i++){
+    cell_dt_uv[1][wirenum-1]->Fill(H_dc_1v1_time[i]);
+     wire_vs_dt[3]->Fill(H_dc_1v1_time[i], H_dc_1v1_wirenum[i]);
+    }
+      for (int i=0; i< Ndata_H_dc_2u1_wirenum; i++){
        wirenum = int(H_dc_2u1_wirenum[i]);
-      //cout << " wire num: " << H_dc_2u1_wirenum[i] << endl;
-	  //cout << "Time: " << H_dc_2u1_time[i] << endl;
-
-      //Fill the Histograms
-     cell_dt[wirenum-1]->Fill(H_dc_2u1_time[i]);
-     wire_vs_dt->Fill(H_dc_2u1_time[i], H_dc_2u1_wirenum[i]);
-
-				}
-			}		
-			
-		if (ip==9) {
-    for (int i=0; i< Ndata_H_dc_2v1_wirenum; i++){
+      cell_dt_uv[2][wirenum-1]->Fill(H_dc_2u1_time[i]);
+     wire_vs_dt[8]->Fill(H_dc_2u1_time[i], H_dc_2u1_wirenum[i]);
+    }
+   for (int i=0; i< Ndata_H_dc_2v1_wirenum; i++){
        wirenum = int(H_dc_2v1_wirenum[i]);
-      //cout << " wire num: " << H_dc_2v1_wirenum[i] << endl;
-	  //cout << "Time: " << H_dc_2v1_time[i] << endl;
-
-      //Fill the Histograms
-     cell_dt[wirenum-1]->Fill(H_dc_2v1_time[i]);
-     wire_vs_dt->Fill(H_dc_2v1_time[i], H_dc_2v1_wirenum[i]);
-
-				}
-			}						
-					
-					
-					
-					}
-					}
-
-	/*PLANE 1Y1, 1Y2, 2Y1, 2Y2*/				
-	//If specific planes are encountered, treat them as follows:
-	if(ip==1 || ip==4 || ip==7 || ip==10) {
-
-	total_wires = 52;
-	TH1F *cell_dt[52];    
-    TH2F *wire_vs_dt = new TH2F("wire_vs_dt", "", 200., -50., 350., 52., 0.,52.);
-    
-    //Initialize wire drift time histograms
-    for (int wirenum=1; wirenum<=total_wires; wirenum++){
-	cell_dt[wirenum-1] = new TH1F(Form("wire_%d", wirenum), "", 200., -50., 350.);
-     }
-	
-       //Loop over all entries (triggers or events)   
-    for (Long64_t jentry=0; jentry<nentries; jentry++) {
-      Long64_t ientry = LoadTree(jentry);
-      if (ientry < 0) break;
-      nb = fChain->GetEntry(jentry);   nbytes += nb;
-      // if (Cut(ientry) < 0) continue;
- 
- if (ip==1) {
-    for (int i=0; i< Ndata_H_dc_1y1_wirenum; i++){
+      cell_dt_uv[3][wirenum-1]->Fill(H_dc_2v1_time[i]);
+     wire_vs_dt[9]->Fill(H_dc_2v1_time[i], H_dc_2v1_wirenum[i]);
+   }
+     for (int i=0; i< Ndata_H_dc_1y1_wirenum; i++){
        wirenum = int(H_dc_1y1_wirenum[i]);
-      //cout << " wire num: " << H_dc_1y1_wirenum[i] << endl;
-	  //cout << "Time: " << H_dc_1y1_time[i] << endl;
-
-      //Fill the Histograms
-     cell_dt[wirenum-1]->Fill(H_dc_1y1_time[i]);
-     wire_vs_dt->Fill(H_dc_1y1_time[i], H_dc_1y1_wirenum[i]);
-
-				}
-			}
-							
-	 if (ip==4) {
+     cell_dt_y[0][wirenum-1]->Fill(H_dc_1y1_time[i]);
+     wire_vs_dt[1]->Fill(H_dc_1y1_time[i], H_dc_1y1_wirenum[i]);
+    }
     for (int i=0; i< Ndata_H_dc_1y2_wirenum; i++){
        wirenum = int(H_dc_1y2_wirenum[i]);
-      //cout << " wire num: " << H_dc_1y2_wirenum[i] << endl;
-	  //cout << "Time: " << H_dc_1y2_time[i] << endl;
-
-      //Fill the Histograms
-     cell_dt[wirenum-1]->Fill(H_dc_1y2_time[i]);
-     wire_vs_dt->Fill(H_dc_1y2_time[i], H_dc_1y2_wirenum[i]);
-
-				}
-			}						
-			
-		 if (ip==7) {
-    for (int i=0; i< Ndata_H_dc_2y1_wirenum; i++){
+      cell_dt_y[1][wirenum-1]->Fill(H_dc_1y2_time[i]);
+     wire_vs_dt[4]->Fill(H_dc_1y2_time[i], H_dc_1y2_wirenum[i]);
+    }
+     for (int i=0; i< Ndata_H_dc_2y1_wirenum; i++){
        wirenum = int(H_dc_2y1_wirenum[i]);
-      //cout << " wire num: " << H_dc_2y1_wirenum[i] << endl;
-	  //cout << "Time: " << H_dc_2y1_time[i] << endl;
-
-      //Fill the Histograms
-     cell_dt[wirenum-1]->Fill(H_dc_2y1_time[i]);
-     wire_vs_dt->Fill(H_dc_2y1_time[i], H_dc_2y1_wirenum[i]);
-
-				}
-			}		
-			
-		if (ip==10) {
-    for (int i=0; i< Ndata_H_dc_2y2_wirenum; i++){
+     cell_dt_y[2][wirenum-1]->Fill(H_dc_2y1_time[i]);
+     wire_vs_dt[7]->Fill(H_dc_2y1_time[i], H_dc_2y1_wirenum[i]);
+    }
+   for (int i=0; i< Ndata_H_dc_2y2_wirenum; i++){
        wirenum = int(H_dc_2y2_wirenum[i]);
-      //cout << " wire num: " << H_dc_2y2_wirenum[i] << endl;
-	  //cout << "Time: " << H_dc_2y2_time[i] << endl;
-
-      //Fill the Histograms
-     cell_dt[wirenum-1]->Fill(H_dc_2y2_time[i]);
-     wire_vs_dt->Fill(H_dc_2y2_time[i], H_dc_2y2_wirenum[i]);
-
-				}
-			}						
-					
-					
-					
-					}
-					}
-
+       cell_dt_y[3][wirenum-1]->Fill(H_dc_2y2_time[i]);
+     wire_vs_dt[10]->Fill(H_dc_2y2_time[i], H_dc_2y2_wirenum[i]);
+    }
+//
+    }  // lopp over entries
 //Write wire drift time histos to file
-g[ip]->Write();
-	cout << "EVERYTHING OK in plane:" << ip << endl;	
+    cout << " writing out root file" << endl;
+    ix=0;
+    iy=0;
+    iuv=0;
+for (int ip = 0; ip < NPLANES; ip++){	
+  cout << ip << endl;
+  root_file[ip] = run_dir;
+ root_file[ip] = root_file[ip]+"/hms_DC_"+plane_names[ip]+Form("_%d.root", run);
+ cout << " root file = " << root_file[ip] << endl;
+ g[ip] = new TFile(root_file[ip], "RECREATE");
+ // g[ip]->cd();
+	if(ip==0 || ip==5 || ip==6 || ip==11) {
+ 	total_wires = 113;
+        for (int wirenum=1; wirenum<=total_wires; wirenum++){
+            cell_dt_x[ix][wirenum-1]->Write();
+         }
+	ix++;
+	}
+	if (ip==2 || ip==3 || ip==8 || ip==9) {
+ 	total_wires = 107;
+        for (int wirenum=1; wirenum<=total_wires; wirenum++){
+            cell_dt_uv[iuv][wirenum-1]->Write();
+         }
+	iuv++;
+	}
+	if(ip==1 || ip==4 || ip==7 || ip==10) {
+ 	total_wires = 52;
+        for (int wirenum=1; wirenum<=total_wires; wirenum++){
+            cell_dt_y[iy][wirenum-1]->Write();
+         }
+	iy++;
+	}
+         wire_vs_dt[ip]->Write();
+	   g[ip]->Close();
+    }
 
-}
-
-
-     //     cout << "\r          \r" << (float)sensewire / total_wires * 100.0 << "%" << flush; 
-
-
-
+ cout << " done" << endl;
 
 }

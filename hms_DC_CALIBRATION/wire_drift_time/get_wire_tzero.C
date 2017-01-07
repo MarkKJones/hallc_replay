@@ -23,16 +23,18 @@ TString run_NUM = "run_259";
 TString plane_names[NPLANES]={"1x1", "1y1", "1u1", "1v1", "1y2", "1x2", "2x1", "2y1", "2u1", "2v1", "2y2", "2x2"};
 
 //Declare a root file array to store individual DC cell drift times
-TString root_file;
+TString root_file_start="root_files/";
 TFile *f[NPLANES];
    
 int total_wires;  //integer to store total sense wires for a plane chosen by the user
         
 //Loop over all planes
+ TString output_root_file_start = "root_files/";
+
 for (int ip = 0; ip < NPLANES; ip++){
 
 //READ root file
-root_file = "root_files/"+run_NUM+"/hms_DC_"+plane_names[ip]+Form("_%d.root",run);
+  root_file = root_file_start+Form("run_%d",run)+"/hms_DC_"+plane_names[ip]+Form("_%d.root",run);
 f[ip] = new TFile(root_file, "READ");
 
 //Create a file output file stream object to write t0 values to data file
@@ -44,7 +46,7 @@ ofs.open (t_zero_file);
  ofs << "#WIRE " << "   "  << "t0" << "   " << "t0_err" << "   " << " entries " << endl;
 
 //Create root file to store fitted wire drift times histos and "t0 vs. wirenum"
-TString output_root_file = "root_files/"+run_NUM+"/hmsDC_"+plane_names[ip]+Form("run%d_saved_histos.root", run);
+TString output_root_file = output_root_file_start+Form("run_%d",run)+"/hmsDC_"+plane_names[ip]+Form("run%d_saved_histos.root", run);
 TFile *g = new TFile(output_root_file,"RECREATE");
 
 f[ip]->cd();  //change to file containing the wire drift times histos
@@ -97,7 +99,7 @@ sense wire of a plane in HMS Drift Chambers (DC1 or DC2)*/
 for (int sensewire=1; sensewire<=total_wires; sensewire++){
 
 //Get title of histos in root file
-TString drift_time_histo = Form("wire_%d", sensewire); 
+TString drift_time_histo = Form("pl_%s_wire_%d",plane_names[ip].Data(), sensewire); 
  
 //Get drift time histograms from root file
 cell_dt[sensewire-1] = (TH1F*)f[ip]->Get(drift_time_histo);
@@ -214,7 +216,7 @@ tZero_fit->SetParameter(0, 1.0);
 tZero_fit->SetParameter(1, 1.0);
 
 //Fit Function in specified range
-cell_dt[sensewire-1]->Fit("tZero_fit", "R");
+cell_dt[sensewire-1]->Fit("tZero_fit", "QR");
 
 //Get Parameters and their errors
 m = tZero_fit->GetParameter(0);
