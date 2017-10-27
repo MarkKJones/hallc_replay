@@ -1,2 +1,2 @@
 ; Garth H. gain calibration for run 486, June 20 2017
-phgcer_adc_to_npe = 1./551., 1./426., 1./376., 1./488.
+phgcer_adc_to_npe = 1./551./.00195, 1./426./.00195, 1./376./.00195, 1./488./.00195
