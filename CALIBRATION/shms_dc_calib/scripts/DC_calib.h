@@ -1,6 +1,23 @@
 //SHMS DC Calibration Class
 #ifndef DC_CALIB_H
 #define DC_CALIB_H
+#include "TStyle.h"
+#include "TH1F.h"
+#include "TF1.h"
+#include "TH2F.h"
+#include "TVectorD.h"
+#include "TMatrixD.h"
+#include "TDecompLU.h"
+#include "TGraphErrors.h"
+#include "TCanvas.h"
+#include "TMath.h"
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+
+#include "TROOT.h"
+#include "TFile.h"
+#include "TTree.h"
 
 #define NPLANES 12
 #define NBINS 400
@@ -57,15 +74,18 @@ class DC_calib
   TString wirenum;
 
   TString cer_npe_name;
+  TString cal_name;
   TString EL_CLEAN_name;
  
   Double_t cer_npe;
+  Double_t cal_etotnorm;
   Double_t EL_CLEAN;
 
   Double_t hcer_npe;
 
 
   //Boolean for PID cuts
+  Bool_t good_elec;     //hms cerenkov cut
   Bool_t cer_elec;     //hms cerenkov cut
   Bool_t elec_clean;    //e- clean trigger tdctime cut
 

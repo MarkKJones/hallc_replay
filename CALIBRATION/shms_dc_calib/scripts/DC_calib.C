@@ -114,7 +114,7 @@ void DC_calib::SetPlaneNames()
   if(spec=="SHMS")
     {
       offset = 0.0;
-      max_wire_entry = 1000;
+      max_wire_entry = 500;
       SPECTROMETER = "P";
       spectre = "p";
    
@@ -172,7 +172,7 @@ void DC_calib::GetDCLeafs()
   tree = (TTree*)in_file->Get("T");
   
   Long64_t nentries = tree->GetEntries();
-
+  num_evts=nentries;
   if (num_evts > nentries)
     {
       cout << "Number of entries exceeds: " << nentries << endl;
@@ -202,12 +202,13 @@ void DC_calib::GetDCLeafs()
   
   if (spec=="SHMS")
     {
-      cer_npe_name = "P.ngcer.npeSum";  
-      EL_CLEAN_name = "T.shms.pEL_CLEAN_tdcTime";
+      cal_name = "P.cal.etotnorm";  
+      //cer_npe_name = "P.ngcer.npeSum";  
+      //EL_CLEAN_name = "T.shms.pEL_CLEAN_tdcTime";
       //EL_CLEAN_name = "T.coin.pEL_CLEAN_ROC2_tdcTime";
 
-      tree->SetBranchAddress(cer_npe_name, &cer_npe);   
-      tree->SetBranchAddress(EL_CLEAN_name, &EL_CLEAN);
+      tree->SetBranchAddress(cal_name, &cal_etotnorm);   
+      //tree->SetBranchAddress(EL_CLEAN_name, &EL_CLEAN);
     }
 
   else if (spec=="HMS")
@@ -350,13 +351,15 @@ void DC_calib::EventLoop()
 {
 
 
-
+  Int_t cnts_ch1=0;
+  Int_t cnts_ch2=0;
   //Loop over all entries
   for(Long64_t i=0; i<num_evts; i++)
     {
       //cout << "entry: " << i << endl;
       tree->GetEntry(i);  
-
+      cnts_ch1=0;
+      cnts_ch2=0;
 
       //------READ USER 'pid' input to determine particle type to calibrate----------
       
@@ -370,8 +373,13 @@ void DC_calib::EventLoop()
       //PID Cut, Set Bool_t to actual value, and see if it passes cut
       else if (pid=="pid_elec")
 	{
-	  cer_elec = cer_npe>1.0;
-	  elec_clean = EL_CLEAN>0;    //tdcTime>0
+	  for (Int_t ip=0;ip<NPLANES;ip++) {
+              if (ip<=5 && ndata_time[ip]==1) cnts_ch1++;
+              if (ip>5 && ndata_time[ip]==1) cnts_ch2++;
+	    }
+	  good_elec=cal_etotnorm>.1&&cnts_ch1>=6&&cnts_ch2>=6;
+	  //	  cer_elec = cer_npe>1.0;
+	  //elec_clean = EL_CLEAN>0;    //tdcTime>0
 	}
 
       //PID Cut, hadron, Set Bool_t to actual value, and see if it passes cut
@@ -391,7 +399,7 @@ void DC_calib::EventLoop()
 
       //----------------------------------------------------------------------------
 
-      if (cer_elec&&elec_clean) 
+      if (good_elec) 
 	{
 	  // cout << "passed cut: " << i << endl;
 	  for(Int_t ip=0; ip<NPLANES; ip++)
@@ -401,7 +409,7 @@ void DC_calib::EventLoop()
 	      //-----------------------------------------------------------------------------------------	  
 	 
 	  //Loop over number of hits for each trigger in each DC plane 
-	  for(Int_t j = 0, k = 0; j < ndata_time[ip], k < ndata_wirenum[ip]; j++, k++)    
+	  for(Int_t k = 0; k < ndata_wirenum[ip]; k++)    
 	    {
 	
 
@@ -414,68 +422,68 @@ void DC_calib::EventLoop()
 		  //Fill uncorrected plane drift times  (from: get_pdc_time_histo.C )
 		if (ip== 0 && wire > 80)
 		  {
-		    plane_dt[ip].Fill(drift_time[ip][j] - offset); 
-		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][j] - offset);
-		    cell_dt[ip][wire-1].Fill(drift_time[ip][j] - offset);
-		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][j] - offset);
+		    plane_dt[ip].Fill(drift_time[ip][k] - offset); 
+		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][k] - offset);
+		    cell_dt[ip][wire-1].Fill(drift_time[ip][k] - offset);
+		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][k] - offset);
 		  }
 
 		else if (ip== 6 && wire > 80)
 		  {
-		    plane_dt[ip].Fill(drift_time[ip][j] - offset); 
-		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][j] - offset);
-		    cell_dt[ip][wire-1].Fill(drift_time[ip][j] - offset);
-		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][j] - offset);
+		    plane_dt[ip].Fill(drift_time[ip][k] - offset); 
+		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][k] - offset);
+		    cell_dt[ip][wire-1].Fill(drift_time[ip][k] - offset);
+		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][k] - offset);
 		  }
 
 		else if (ip == 0 && wire <= 80) 
 		  {
-		    plane_dt[ip].Fill(drift_time[ip][j]); 
-		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][j]);
-		    cell_dt[ip][wire-1].Fill(drift_time[ip][j]);
-		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][j]);
+		    plane_dt[ip].Fill(drift_time[ip][k]); 
+		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][k]);
+		    cell_dt[ip][wire-1].Fill(drift_time[ip][k]);
+		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][k]);
 		  }
 		else if (ip == 6 && wire <= 80) 
 		  {
-		    plane_dt[ip].Fill(drift_time[ip][j]); 
-		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][j]);
-		    cell_dt[ip][wire-1].Fill(drift_time[ip][j]);
-		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][j]);
+		    plane_dt[ip].Fill(drift_time[ip][k]); 
+		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][k]);
+		    cell_dt[ip][wire-1].Fill(drift_time[ip][k]);
+		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][k]);
 		  }
 	
       
 
 		else if ((ip == 4 || ip == 10) && wire > 48 && wire <65)
 		  {
-		    plane_dt[ip].Fill(drift_time[ip][j] - offset); 
-		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][j] - offset);
-		    cell_dt[ip][wire-1].Fill(drift_time[ip][j] - offset);
-		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][j] - offset);
+		    plane_dt[ip].Fill(drift_time[ip][k] - offset); 
+		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][k] - offset);
+		    cell_dt[ip][wire-1].Fill(drift_time[ip][k] - offset);
+		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][k] - offset);
 		  }
 		else if (ip == 4 && (wire <=48 || wire >= 65)) 
 		  {
-		    plane_dt[ip].Fill(drift_time[ip][j]); 
-		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][j]);
-		    cell_dt[ip][wire-1].Fill(drift_time[ip][j]);
-		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][j]);
+		    plane_dt[ip].Fill(drift_time[ip][k]); 
+		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][k]);
+		    cell_dt[ip][wire-1].Fill(drift_time[ip][k]);
+		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][k]);
 		  } 
 		else if (ip == 10 && (wire <= 48 || wire >= 65)) 
 		  {
-		    plane_dt[ip].Fill(drift_time[ip][j]); 
-		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][j]);
-		    cell_dt[ip][wire-1].Fill(drift_time[ip][j]);
-		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][j]);
+		    plane_dt[ip].Fill(drift_time[ip][k]); 
+		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][k]);
+		    cell_dt[ip][wire-1].Fill(drift_time[ip][k]);
+		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][k]);
 		  } 
 		
 		else if (ip!=4 || ip!=0 || ip!=6 || ip!=10)
 		  {
-		    plane_dt[ip].Fill(drift_time[ip][j]); 
-		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][j]);
-		    cell_dt[ip][wire-1].Fill(drift_time[ip][j]);
-		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][j]);
+		    plane_dt[ip].Fill(drift_time[ip][k]); 
+		    dt_vs_wire[ip].Fill(wire_num[ip][k], drift_time[ip][k]);
+		    cell_dt[ip][wire-1].Fill(drift_time[ip][k]);
+		    fitted_cell_dt[ip][wire-1].Fill(drift_time[ip][k]);
 		  } 
 	
-				  } // end TRG Cut	 
+		//}// end TRG Cut	 
 //-----------------------------------------------------------------------------------------
 	      
 	    } //END loop over hits 
@@ -483,12 +491,12 @@ void DC_calib::EventLoop()
 	
       
 	
-	} //end loop over planes
+	    } //end loop over planes
     
-    } //end loop over events
+	} //PID
 
-} // end event loop
-
+    } // end event loop
+}
 
 //_________________________________________________________________________
 /*
@@ -934,11 +942,15 @@ void DC_calib::ApplyTZeroCorrection()
  
   cout << "ApplyT0Corr  "<< endl;
 
-  
+   Int_t cnts_ch1=0;
+  Int_t cnts_ch2=0;
+ 
   //Loop over all entries
   for(Long64_t i=0; i<num_evts; i++)
     {
       tree->GetEntry(i);
+      cnts_ch1=0;
+      cnts_ch2=0;
 
       //----------READ USER 'pid' input to determine particle type to calibrate----------
 
@@ -955,8 +967,13 @@ void DC_calib::ApplyTZeroCorrection()
       else if (pid=="pid_elec")
 	{
 	 
-	  cer_elec = cer_npe>1.0;
-	  elec_clean = EL_CLEAN>0;    //tdcTime>0
+	  for (Int_t ip=0;ip<NPLANES;ip++) {
+              if (ip<=5 && ndata_time[ip]==1) cnts_ch1++;
+              if (ip>5 && ndata_time[ip]==1) cnts_ch2++;
+	    }
+	  good_elec=cal_etotnorm>.1&&cnts_ch1>=6&&cnts_ch2>=6;
+	  //	  cer_elec = cer_npe>1.0;
+	  //elec_clean = EL_CLEAN>0;    //tdcTime>0
 
 	}
 
@@ -979,7 +996,7 @@ void DC_calib::ApplyTZeroCorrection()
 
       //--------------------------------------------------------------------------------------
 	  
-      if (cer_elec&&elec_clean) 
+      if (good_elec) 
 	{
 	  
 	  
@@ -988,10 +1005,10 @@ void DC_calib::ApplyTZeroCorrection()
 	      //cout << "ApplyTZeroCorr: " << weighted_avg[ip] << endl;
 	      //Loop over number of hits for each trigger in each DC plane 
 	      
-	      for(Int_t j = 0, k = 0; j < ndata_time[ip], k < ndata_wirenum[ip]; j++, k++)    
+	      for(Int_t k = 0; k < ndata_wirenum[ip];  k++)    
 		{
 		  //get wire hit for ith event in 'ip' plane
-		  wire = int(wire_num[ip][j]);
+		  wire = int(wire_num[ip][k]);
 		  
 		  //Apply general offsets to account for TDC shift
 		  if (ip== 0 && wire > 80)
@@ -1000,17 +1017,17 @@ void DC_calib::ApplyTZeroCorrection()
 		      if ( t_zero[ip][wire-1] == weighted_avg[ip])
 			{
 			  //Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j] - offset - weighted_avg[ip]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - offset - weighted_avg[ip]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - offset - weighted_avg[ip]);	  
+			  plane_dt_corr[ip].Fill(drift_time[ip][k] - offset - weighted_avg[ip]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - offset - weighted_avg[ip]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - offset - weighted_avg[ip]);	  
 			}
 		      
 		      else 
 			{
 			  //Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j] - offset - t_zero[ip][wire-1]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - offset - t_zero[ip][wire-1]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - offset - t_zero[ip][wire-1]);
+			  plane_dt_corr[ip].Fill(drift_time[ip][k] - offset - t_zero[ip][wire-1]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - offset - t_zero[ip][wire-1]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - offset - t_zero[ip][wire-1]);
 			  
 			}
 		      
@@ -1021,16 +1038,16 @@ void DC_calib::ApplyTZeroCorrection()
 		      if (t_zero[ip][wire-1] == weighted_avg[ip])
 			{
 			//Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j] - weighted_avg[ip]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - weighted_avg[ip]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - weighted_avg[ip]);	  
+			  plane_dt_corr[ip].Fill(drift_time[ip][k] - weighted_avg[ip]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - weighted_avg[ip]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - weighted_avg[ip]);	  
 			}
 		      else
 			{
 			  //Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j] - t_zero[ip][wire-1]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - t_zero[ip][wire-1]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - t_zero[ip][wire-1]);
+			  plane_dt_corr[ip].Fill(drift_time[ip][k] - t_zero[ip][wire-1]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - t_zero[ip][wire-1]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - t_zero[ip][wire-1]);
 			}
 		      
 		    }
@@ -1041,17 +1058,17 @@ void DC_calib::ApplyTZeroCorrection()
 		      if ( t_zero[ip][wire-1] == weighted_avg[ip])
 			{
 			  //Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j] - offset - weighted_avg[ip]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - offset - weighted_avg[ip]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - offset - weighted_avg[ip]);	  		               
+			  plane_dt_corr[ip].Fill(drift_time[ip][k] - offset - weighted_avg[ip]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - offset - weighted_avg[ip]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - offset - weighted_avg[ip]);	  		               
 			}
 		      
 		      else
 			{
 			  //Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j] - offset - t_zero[ip][wire-1]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - offset - t_zero[ip][wire-1]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - offset - t_zero[ip][wire-1]);
+			  plane_dt_corr[ip].Fill(drift_time[ip][k] - offset - t_zero[ip][wire-1]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - offset - t_zero[ip][wire-1]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - offset - t_zero[ip][wire-1]);
 			}
 		    }
 		  
@@ -1061,16 +1078,16 @@ void DC_calib::ApplyTZeroCorrection()
 		      if ( t_zero[ip][wire-1] == weighted_avg[ip])
 			{
 			  //Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j] - weighted_avg[ip]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - weighted_avg[ip]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - weighted_avg[ip]);	  
+			  plane_dt_corr[ip].Fill(drift_time[ip][k] - weighted_avg[ip]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - weighted_avg[ip]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - weighted_avg[ip]);	  
 			}
 		      else 
 			{
 			  //Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j] - t_zero[ip][wire-1]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - t_zero[ip][wire-1]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - t_zero[ip][wire-1]);
+			  plane_dt_corr[ip].Fill(drift_time[ip][k] - t_zero[ip][wire-1]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - t_zero[ip][wire-1]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - t_zero[ip][wire-1]);
 			}		  
 		      
 		    }
@@ -1080,16 +1097,16 @@ void DC_calib::ApplyTZeroCorrection()
 		      if (t_zero[ip][wire-1] == weighted_avg[ip])
 			{
 			  //Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j] - offset - weighted_avg[ip]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - offset - weighted_avg[ip]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - offset - weighted_avg[ip]);	  
+			  plane_dt_corr[ip].Fill(drift_time[ip][k] - offset - weighted_avg[ip]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - offset - weighted_avg[ip]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - offset - weighted_avg[ip]);	  
 			}
 		      else 
 			{
 			  //Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j]  -offset - t_zero[ip][wire-1]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - offset - t_zero[ip][wire-1]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - offset - t_zero[ip][wire-1]);
+			  plane_dt_corr[ip].Fill(drift_time[ip][k]  -offset - t_zero[ip][wire-1]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - offset - t_zero[ip][wire-1]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - offset - t_zero[ip][wire-1]);
 			}
 		      
 		    }
@@ -1099,16 +1116,16 @@ void DC_calib::ApplyTZeroCorrection()
 		      if (t_zero[ip][wire-1] == weighted_avg[ip])
 			{
 			  //Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j] - weighted_avg[ip]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - weighted_avg[ip]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - weighted_avg[ip]);	  
+			  plane_dt_corr[ip].Fill(drift_time[ip][k] - weighted_avg[ip]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - weighted_avg[ip]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - weighted_avg[ip]);	  
 			}
 		      else
 			{
 			  //Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j] - t_zero[ip][wire-1]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - t_zero[ip][wire-1]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - t_zero[ip][wire-1]);
+			  plane_dt_corr[ip].Fill(drift_time[ip][k] - t_zero[ip][wire-1]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - t_zero[ip][wire-1]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - t_zero[ip][wire-1]);
 			}
 		      
 		    }
@@ -1119,17 +1136,17 @@ void DC_calib::ApplyTZeroCorrection()
 		      if (t_zero[ip][wire-1] == weighted_avg[ip])
 			{
 			  //Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j] - weighted_avg[ip]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - weighted_avg[ip]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - weighted_avg[ip]);	  
+			  plane_dt_corr[ip].Fill(drift_time[ip][k] - weighted_avg[ip]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - weighted_avg[ip]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - weighted_avg[ip]);	  
 			}
 		      
 		      else 
 			{
 			  //Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j] - t_zero[ip][wire-1]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - t_zero[ip][wire-1]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - t_zero[ip][wire-1]);
+			  plane_dt_corr[ip].Fill(drift_time[ip][k] - t_zero[ip][wire-1]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - t_zero[ip][wire-1]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - t_zero[ip][wire-1]);
 			}
 		      
 		    }
@@ -1140,21 +1157,21 @@ void DC_calib::ApplyTZeroCorrection()
 		      if (t_zero[ip][wire-1] == weighted_avg[ip])
 			{
 			  //Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j] - weighted_avg[ip]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - weighted_avg[ip]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - weighted_avg[ip]);	  
+			  plane_dt_corr[ip].Fill(drift_time[ip][k] - weighted_avg[ip]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - weighted_avg[ip]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - weighted_avg[ip]);	  
 			}
 		      else
 			{
 			  //Fill corrected plane drift times 
-			  plane_dt_corr[ip].Fill(drift_time[ip][j] - t_zero[ip][wire-1]); 
-			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][j] - t_zero[ip][wire-1]);
-			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][j] - t_zero[ip][wire-1]);
+			  plane_dt_corr[ip].Fill(drift_time[ip][k] - t_zero[ip][wire-1]); 
+			  cell_dt_corr[ip][wire-1].Fill(drift_time[ip][k] - t_zero[ip][wire-1]);
+			  dt_vs_wire_corr[ip].Fill(wire_num[ip][k], drift_time[ip][k] - t_zero[ip][wire-1]);
 			}
 		      
 		    }
 		  
-		}  // end EL-CLEAN TRG Cut
+		} // end EL-CLEAN TRG Cut
 		  
 	    } //end loop over hits
 	  
