@@ -21,10 +21,10 @@ int main_calib()
                                                                                                         // v
   //DC_calib obj("HMS", "../../../ROOTfiles/hms_replay_production_all_1856_dcuncal.root", 1856,2000000, "pid_kFALSE");
   //DC_calib obj("SHMS", "../../../ROOTfiles/shms_replay_production_all_2071_-1_dcuncalib.root", 2071, 3000000, "pid_bkg"); 
-  DC_calib obj("HMS", "../../../ROOTfiles/hms_coin_replay_production_1866_1000000.root", 1866, 1000000, "dc_1hit");
-
+  DC_calib obj("SHMS","ROOTfiles/shms_replay_dc_calib_1583_-1_uncalib.root",1583,-1,"pid_elec");
  
   obj.printInitVar();
+  obj.setup_Directory();
   obj.SetPlaneNames();
   obj.GetDCLeafs();
   obj.AllocateDynamicArrays();
