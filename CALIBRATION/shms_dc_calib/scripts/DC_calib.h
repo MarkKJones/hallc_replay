@@ -1,6 +1,21 @@
 //SHMS DC Calibration Class
 #ifndef DC_CALIB_H
 #define DC_CALIB_H
+#include "TStyle.h"
+#include "TH1F.h"
+#include "TH2F.h"
+#include "TF1.h"
+#include "TCanvas.h"
+#include "TGraphErrors.h"
+#include "TMath.h"
+#include "TROOT.h"
+#include "TFile.h"
+#include "TTree.h"
+#include "TVectorD.h"
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <vector>
 
 #define NPLANES 12
 #define NBINS 400
