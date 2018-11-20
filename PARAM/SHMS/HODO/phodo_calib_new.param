@@ -1,6 +1,7 @@
 
 ; use ptofusinginvadc=1 if want invadc_offset
 ;  invadc_linear, and invadc_adc to be used
+ptofusinginvadc=1
 
 phodo_pos_invadc_offset =   -0.00,   -0.00,    3.10,   -0.00
                              3.46,   -0.00,    1.83,   -0.00

@@ -32,7 +32,8 @@ void replay_production_coin_hElec_pProt (Int_t RunNumber = 0, Int_t MaxEvent = 0
   gHcParms->Load(gHcParms->GetString("g_ctp_database_filename"), RunNumber);
   gHcParms->Load(gHcParms->GetString("g_ctp_parm_filename"));
   gHcParms->Load(gHcParms->GetString("g_ctp_kinematics_filename"), RunNumber);
-  // Load params for COIN trigger configuration
+  //gHcParms->Load("PARAM/SHMS/HODO/ptofcalib.param");
+ // Load params for COIN trigger configuration
   gHcParms->Load("PARAM/TRIG/tcoin.param");
   // Load fadc debug parameters
   gHcParms->Load("PARAM/HMS/GEN/h_fadc_debug.param");
@@ -45,6 +46,8 @@ void replay_production_coin_hElec_pProt (Int_t RunNumber = 0, Int_t MaxEvent = 0
   gHcDetectorMap = new THcDetectorMap();
   gHcDetectorMap->Load("MAPS/COIN/DETEC/coin.map");
 
+  THaDecData* decdata = new THaDecData("D","Decoder");
+  gHaApps->Add(decdata);
   //=:=:=:=
   // SHMS 
   //=:=:=:=
@@ -180,16 +183,15 @@ void replay_production_coin_hElec_pProt (Int_t RunNumber = 0, Int_t MaxEvent = 0
   // Global Objects & Event Handlers
   //=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
 
+
   // Add trigger apparatus
   THaApparatus* TRG = new THcTrigApp("T", "TRG");
   gHaApps->Add(TRG);
   // Add trigger detector to trigger apparatus
   THcTrigDet* coin = new THcTrigDet("coin", "Coincidence Trigger Information");
-  // Suppress missing reference time warnings for these event types
   coin->SetEvtType(1);
   coin->AddEvtType(2);
   TRG->AddDetector(coin); 
-
   
   //Add coin physics module THcCoinTime::THcCoinTime (const char *name, const char* description, const char* hadArmName, 
   // const char* elecArmName, const char* coinname) :
@@ -236,7 +238,8 @@ void replay_production_coin_hElec_pProt (Int_t RunNumber = 0, Int_t MaxEvent = 0
 
   analyzer->SetEvent(event);
   // Set EPICS event type
-  analyzer->SetEpicsEvtType(180);
+  analyzer->SetEpicsEvtType(182);
+  analyzer->AddEpicsEvtType(181);
   // Define crate map
   analyzer->SetCrateMapFileName("MAPS/db_cratemap.dat");
   // Define output ROOT file

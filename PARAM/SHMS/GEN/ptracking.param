@@ -33,7 +33,7 @@ pntracks_max_fp = 10
   psingle_stub = 0
 
 ; No small angle approximation for cosmic ray tests
-  pSmallAngleApprox = 0
+  pSmallAngleApprox = 1
 
 ; Crude track selection criteria in h_physics
 ; psel_chi2_fpperdegmax   maximum chi2 per degree of freedom for track
@@ -95,4 +95,4 @@ pntracks_max_fp = 10
   pyhiscin  = 11, 14
 ;  ptrack_eff_test_scin_planes is the number of planes nec needed to
 ;  set sweet spot to true. 4 is extra clean, 3 is good enough for e-'s.
-  ptrack_eff_test_num_scin_planes = 3
+  ptrack_eff_test_num_scin_planes = 4

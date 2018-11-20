@@ -23,7 +23,7 @@ void replay_production_shms_coin_all (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   pathList.push_back("./raw/../raw.copiedtotape");
   pathList.push_back("./cache");
 
-  const char* ROOTFileNamePattern = "ROOTfiles/shms_coin_replay_production_all_%d_%d.root";
+  const char* ROOTFileNamePattern = "ROOTfiles/shms_replay_matrixopt_%d_%d.root";
   
   // Load global parameters
   gHcParms->Define("gen_run_number", "Run Number", RunNumber);
@@ -155,7 +155,7 @@ void replay_production_shms_coin_all (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   // Define output ROOT file
   analyzer->SetOutFile(ROOTFileName.Data());
   // Define DEF-file
-  analyzer->SetOdefFile("DEF-files/SHMS/PRODUCTION/pstackana_production_all.def");
+  analyzer->SetOdefFile("DEF-files/SHMS/PRODUCTION/matrixopt.def");
   // Define cuts file
   analyzer->SetCutFile("DEF-files/SHMS/PRODUCTION/CUTS/pstackana_production_cuts.def");  // optional
   // File to record accounting information for cuts

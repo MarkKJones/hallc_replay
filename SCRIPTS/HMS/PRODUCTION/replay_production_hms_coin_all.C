@@ -23,7 +23,7 @@ void replay_production_hms_coin_all(Int_t RunNumber=0, Int_t MaxEvent=0) {
   pathList.push_back("./raw/../raw.copiedtotape");
   pathList.push_back("./cache");
 
-  const char* ROOTFileNamePattern = "ROOTfiles/hms_coin_replay_production_all_%d_%d.root";
+  const char* ROOTFileNamePattern = "ROOTfiles/hms_replay_matrixopt_%d_%d.root";
 
   // Load Global parameters
   // Add variables to global list.
@@ -153,7 +153,7 @@ void replay_production_hms_coin_all(Int_t RunNumber=0, Int_t MaxEvent=0) {
   // Define output ROOT file
   analyzer->SetOutFile(ROOTFileName.Data());
   // Define output DEF-file 
-  analyzer->SetOdefFile("DEF-files/HMS/PRODUCTION/hstackana_production_all.def");
+  analyzer->SetOdefFile("DEF-files/HMS/PRODUCTION/matrixopt.def");
   // Define cuts file
   analyzer->SetCutFile("DEF-files/HMS/PRODUCTION/CUTS/hstackana_production_cuts.def");    // optional
   // File to record cuts accounting information for cuts

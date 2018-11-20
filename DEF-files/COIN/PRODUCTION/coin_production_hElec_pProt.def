@@ -1,31 +1,72 @@
+formula H.gtr.xptar H.gtr.th
+formula H.gtr.yptar H.gtr.ph
+formula P.gtr.xptar P.gtr.th
+formula P.gtr.yptar P.gtr.ph
 block T.coin.*
 block CTime*
 
-block H.cer.*
-block H.dc.*
-block H.tr.*
-block H.hod.*
-block H.cal.*
+block H.extcor.xsieve
+block H.extcor.ysieve
+block H.rb.raster.fr_xbpm_tar
+block H.rb.raster.fr_ybpm_tar
 block H.gtr.*
 block H.kin.*
-block H.rb.*
-block H.react.*
-#block H.bcm.*
-
-block P.ngcer.*
-block P.dc.*
-block P.tr.*
+block H.dc.x_fp
+block H.dc.xp_fp
+block H.dc.y_fp
+block H.dc.yp_fp
+block H.dc.ntrack
+block H.cer.npeSum
+block H.cal.etotnorm
+block H.cal.etracknorm
+block H.react.x
+block H.react.y
+block H.react.z
+block H.hod.goodscinhit
+block H.hod.*
 block P.hod.*
-block P.hgcer.*
 block P.aero.*
-block P.cal.*
+
+
+block P.aero.npeSum
+block H.hod.beta*
+block H.hod.start*
+block H.cal.eprtrack
+block H.cal.eprtracknorm
+block H.cal.etot
+block H.cal.etottracknorm
+block H.cal.etrack
 block P.gtr.*
-block P.kin.*
-block P.rb.*
+block P.extcor.*
+block P.dc.x_fp
+block P.dc.xp_fp
+block P.dc.y_fp
+block P.dc.yp_fp
+block P.dc.ntrack
+block P.ngcer.npeSum
+block P.hgcer.npeSum
+block P.cal.pr.eplane
+block P.cal.etotnorm
+block P.cal.etracknorm
+block P.cal.etottracknorm
 block P.react.*
+block P.rb.*
+block P.kin.*
+block P.hod.goodscinhit
+block P.hod.beta*
+block P.hod.start*
+block P.cal.eprtrack
+block P.cal.eprtracknorm
+block P.cal.etot
+block P.aero.npeSum
+block P.hgcer.npeSum
+block H.cer.npeSum
 
 begin epics
 IBC3H00CRCUR4
+IGL1I00OD16_16 'IN'=1 'OUT'=-1
+HELFREQ
+HELDELAYs '8 windows'=1
 hac_bcm_average
 ibcm1
 ibcm2
