@@ -10,10 +10,10 @@ hcosmicflag=0
 ; if not set then defaults to use the raw pulse integral
 hhodo_adc_mode=1
 ; Set htofusinginvadc=0 to use new hodo calibration parameters
-htofusinginvadc=1
-hscin_tdc_to_time = 0.1 
-;   htofusinginvadc=0
-;   hscin_tdc_to_time = 0.09766   ;0.1 was before Dave Mack found the correct conversion in C1190 Manual (May 14, 2018); (See HC Log Entry 3574348)
+;htofusinginvadc=1
+;hscin_tdc_to_time = 0.1 
+   htofusinginvadc=0
+   hscin_tdc_to_time = 0.09766   ;0.1 was before Dave Mack found the correct conversion in C1190 Manual (May 14, 2018); (See HC Log Entry 3574348)
 ; 
 ; hstart_time_center  center of allowed time window (ns)
    hstart_time_center = 32.                                                     
