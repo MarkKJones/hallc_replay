@@ -70,6 +70,7 @@ REFINDEX=0
   59,   2,  44,   1  ! hEL_HI
   60,   2,  45,   1  ! hEL_REAL
   61,   2,  46,   1  ! hEL_CLEAN
+  63,   2,  56,   1  ! hRF
   64,   2,  48,   1  ! pPRE40
   65,   2,  49,   1  ! pPRE100
   66,   2,  50,   1  ! pPRE150
@@ -83,6 +84,7 @@ SLOT=20
 REFINDEX=1
  127,1000,   0,   1  ! hTref2
  127,   2,  17,   1  ! hT2
+  47,   2,  57,   1  ! hHODO_RF
 
 ROC=3
 

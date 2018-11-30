@@ -41,5 +41,11 @@ pRF_ROC2   crate 2 19 79
 hstof      crate 1 2 56
 helreal      crate 1 2 60
 helclean      crate 1 2 61
+hhodostof   crate 1 20 111
+hs1x        crate 1 2 0
+hs1y        crate 1 2 1
+hs2x        crate 1 2 2
+hs2y        crate 1 2 3 
+
 
 

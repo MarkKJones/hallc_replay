@@ -30,6 +30,7 @@ SLOT=20
 REFINDEX=1
   15,1000,   0,   1  ! pTRef1
   15,   2,   1,   1  ! pT1
+  63,   2,  59,   1  ! pHODO_RF  
 
 SLOT=19
 REFINDEX=0
@@ -72,6 +73,7 @@ REFINDEX=0
   75,   2,  47,   1  ! hEL_HI
   76,   2,  48,   1  ! hEL_REAL
   77,   2,  49,   1  ! hEL_CLEAN
+  79,   2,  58,   1  ! pRF
   80,   2,  50,   1  ! pPRE40
   81,   2,  51,   1  ! pPRE100
   82,   2,  52,   1  ! pPRE150

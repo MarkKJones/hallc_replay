@@ -24,13 +24,13 @@ pstart_time_slop = 100.
 ;pscin_tdc_min = -500                                                           
 
 ;with run 4698
-pscin_tdc_min = 100                                                           
+pscin_tdc_min = -1000                                                           
 
 ; pscin_tdc_max       maximum allowed tdc value                                 
-;pscin_tdc_max = 1000                                                        
+;pscin_tdc_max = -1000                                                        
 
 ; with run 4698
-pscin_tdc_max = 1000                                                        
+pscin_tdc_max = 2000                                                        
 
                             
 
