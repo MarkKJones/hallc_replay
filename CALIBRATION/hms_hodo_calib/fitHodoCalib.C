@@ -85,7 +85,7 @@ void fitHodoCalib(TString filename,Int_t runNUM,Bool_t cosmic_flag=kFALSE)
   TString nhcer_npeSum = "H.cer.npeSum";
   TString nhdc_ntrack = "H.dc.ntrack";
   TString nhod_nhits = "nhits";
-  TString nbeta = "H.hod.betanotrack";
+  TString nbeta = "H.hod.beta";
 
   Double_t etrknrm_low_cut = 0.7;
   Double_t npcer_npeSum_low_cut = 0.7;
@@ -246,8 +246,8 @@ void fitHodoCalib(TString filename,Int_t runNUM,Bool_t cosmic_flag=kFALSE)
 	    {
 	    	   
 	      //Initialize Histograms
-	      h2Hist_TW_UnCorr[npl][side][ipmt] = new TH2F(Form("TW_UnCorr PMT %s%d%s", pl_names[npl].c_str(), ipmt+1, nsign[side].c_str()), Form("PMT %s%d%s: UnCorr. (TDC - ADC) Pulse Time vs. ADC Pulse Amplitude ",pl_names[npl].c_str(), ipmt+1, nsign[side].c_str()), 600, 0, 420, 150, -70, -40);   
-	      h2Hist_TW_Corr[npl][side][ipmt] = new TH2F(Form("TW_Corr PMT %s%d%s", pl_names[npl].c_str(), ipmt+1, nsign[side].c_str()) , Form("PMT %s%d%s: Corr. (TDC - ADC) Pulse Time vs. ADC Pulse Amplitude ", pl_names[npl].c_str(), ipmt+1, nsign[side].c_str()), 600, 0, 420, 150, -70, -40);   
+	      h2Hist_TW_UnCorr[npl][side][ipmt] = new TH2F(Form("TW_UnCorr PMT %s%d%s", pl_names[npl].c_str(), ipmt+1, nsign[side].c_str()), Form("PMT %s%d%s: UnCorr. (TDC - ADC) Pulse Time vs. ADC Pulse Amplitude ",pl_names[npl].c_str(), ipmt+1, nsign[side].c_str()), 600, 0, 420, 150, -70, 70);   
+	      h2Hist_TW_Corr[npl][side][ipmt] = new TH2F(Form("TW_Corr PMT %s%d%s", pl_names[npl].c_str(), ipmt+1, nsign[side].c_str()) , Form("PMT %s%d%s: Corr. (TDC - ADC) Pulse Time vs. ADC Pulse Amplitude ", pl_names[npl].c_str(), ipmt+1, nsign[side].c_str()), 600, 0, 420, 150, -70, 70);   
 	      
 	      h2Hist_TW_UnCorr[npl][side][ipmt]->GetYaxis()->SetTitle("Time Walk UnCorr.(TDC - ADC) Pulse Time (ns)");
 	      h2Hist_TW_UnCorr[npl][side][ipmt]->GetXaxis()->SetTitle("ADC Pulse Amplitude (mV)");
@@ -260,11 +260,11 @@ void fitHodoCalib(TString filename,Int_t runNUM,Bool_t cosmic_flag=kFALSE)
 	       if (side==0) //require ONLY one side, since a time diff between two pmts at each end is taken
 		{
 
-		  h1Hist_TWAvg[npl][ipmt] = new TH1F(Form("Avg. Time: Paddle %s%d", pl_names[npl].c_str(), ipmt+1), Form("Paddle %s%d: Time-Walk Corrected Average Time", pl_names[npl].c_str(), ipmt+1), 100, 15, 50);
+		  h1Hist_TWAvg[npl][ipmt] = new TH1F(Form("Avg. Time: Paddle %s%d", pl_names[npl].c_str(), ipmt+1), Form("Paddle %s%d: Time-Walk Corrected Average Time", pl_names[npl].c_str(), ipmt+1), 100, 15, 100);
 		  
-		  h1Hist_TWAvg_CUT[npl][ipmt] = new TH1F(Form("Avg. Time CUT: Paddle %s%d", pl_names[npl].c_str(), ipmt+1), Form("Paddle %s%d: Time-Walk Corrected Average (CUT)",pl_names[npl].c_str(), ipmt+1), 100, 15, 50);
+		  h1Hist_TWAvg_CUT[npl][ipmt] = new TH1F(Form("Avg. Time CUT: Paddle %s%d", pl_names[npl].c_str(), ipmt+1), Form("Paddle %s%d: Time-Walk Corrected Average (CUT)",pl_names[npl].c_str(), ipmt+1), 100, 15, 100);
 	      
-		  h2Hist_TWDiff_v_TrkPos[npl][ipmt] = new TH2F(Form("DistDiff: Paddle %s%d", pl_names[npl].c_str(), ipmt+1), Form("Paddle %s%d: Time-Walk Corr. Hit Dist vs. Hod Track Position", pl_names[npl].c_str(), ipmt+1), 160, -80, 80, 50, -20, 20);
+		  h2Hist_TWDiff_v_TrkPos[npl][ipmt] = new TH2F(Form("DistDiff: Paddle %s%d", pl_names[npl].c_str(), ipmt+1), Form("Paddle %s%d: Time-Walk Corr. Hit Dist vs. Hod Track Position", pl_names[npl].c_str(), ipmt+1), 160, -180, 180, 50, -120, 120);
 		  h2Hist_TW_Corr_v_TrkPos[npl][ipmt] = new TH2F(Form("TimeDiff: Paddle %s%d", pl_names[npl].c_str(), ipmt+1), Form("Paddle %s%d: Time-Walk Corr. TimeDiff. vs. Hod Track Position", pl_names[npl].c_str(), ipmt+1), 160, -40, 40, 120, -6, 6);
 		  
 		  h1Hist_TWDiffTrkPos[npl][ipmt] = new TH1F(Form("DistDiff - Track: Paddle %s%d", pl_names[npl].c_str(), ipmt+1), Form("Paddle %s%d: Time-Walk Corr. Hit Dist. - Hod Track Position",pl_names[npl].c_str(), ipmt+1), 120, -60, 60);
@@ -344,7 +344,7 @@ void fitHodoCalib(TString filename,Int_t runNUM,Bool_t cosmic_flag=kFALSE)
       hCer = hcer_npeSum>npcer_npeSum_low_cut;
       hDCtrk = hdc_ntrack>0.0;
       betaCut = beta>betanotrack_low_cut&& beta<betanotrack_hi_cut;
-        pid_helec = hCal&&hCer&&hDCtrk;
+        pid_helec = hCal&&hCer&&hDCtrk&&betaCut;
       if (cosmic_flag)  pid_helec = betaCut&&hDCtrk; 
        //Apply PID ELECTRON CUT
        
@@ -398,7 +398,7 @@ void fitHodoCalib(TString filename,Int_t runNUM,Bool_t cosmic_flag=kFALSE)
       hCer = hcer_npeSum>npcer_npeSum_low_cut;
       hDCtrk = hdc_ntrack>0.0;
       betaCut = beta>betanotrack_low_cut&& beta<betanotrack_hi_cut;
-        pid_helec = hCal&&hCer&&hDCtrk;
+        pid_helec = hCal&&hCer&&hDCtrk&&betaCut;
       if (cosmic_flag)  pid_helec = betaCut&&hDCtrk; 
  
       //-----APPLY PID CUT TO SELECT CLEAN ELECTRONS-----
@@ -729,6 +729,11 @@ void fitHodoCalib(TString filename,Int_t runNUM,Bool_t cosmic_flag=kFALSE)
  cout << "Starting the code to fit Hodo Matrix . . . " << endl;                                                                                                                                                                                                                                                                                                                                
                                                                  
  /**********BEGIN CODE TO FIT HODO MATRIX**************/
+ Int_t numfit_pad[53];
+
+ for (Int_t ii=0;ii<53;ii++) {
+   numfit_pad[ii]=0;
+ }
 
   for(Long64_t i=0; i<nentries; i++)
     {
@@ -741,14 +746,19 @@ void fitHodoCalib(TString filename,Int_t runNUM,Bool_t cosmic_flag=kFALSE)
       Bool_t y2_hit = hod_nhits[3] == 1;
       
       betaCut=kTRUE;
-      if (cosmic_flag)  betaCut = beta>betanotrack_low_cut&& beta<betanotrack_hi_cut;
+      hCal = hcal_etrkNorm>etrknrm_low_cut;
+      hCer = hcer_npeSum>npcer_npeSum_low_cut;
+      hDCtrk = hdc_ntrack>0.0;
+      betaCut = beta>betanotrack_low_cut&& beta<betanotrack_hi_cut;
+        pid_helec = hCal&&hCer&&hDCtrk&&betaCut;
+       if (cosmic_flag)  betaCut = beta>betanotrack_low_cut&& beta<betanotrack_hi_cut;
       Bool_t hodTrk = TrackXPos[0]<200&&TrackYPos[0]<200&&
 		      TrackXPos[1]<200&&TrackYPos[1]<200&&
 		      TrackXPos[2]<200&&TrackYPos[2]<200&&
 		      TrackXPos[3]<200&&TrackYPos[3]<200;
 
 	//require each plane to have ONLY a SINGLE HIT, and hod track coord. to be reasonable (NOT kBig)
-	if (x1_hit&&y1_hit&&x2_hit&&y2_hit&&hodTrk)
+	if (x1_hit&&y1_hit&&x2_hit&&y2_hit&&hodTrk&&pid_helec)
 	  {
 	    
 	    //goodhit: If both ends of a paddle had a tdc hit
@@ -801,6 +811,10 @@ void fitHodoCalib(TString filename,Int_t runNUM,Bool_t cosmic_flag=kFALSE)
 	      
 	      ngood = ngood + 1; //good event counter
               if ( ngood == evtNUM) cout << " Reach limit of filling matrix " << endl;
+	      numfit_pad[good_pad[0]-1]++;
+	      numfit_pad[good_pad[1]-1]++;
+	      numfit_pad[good_pad[2]-1]++;
+	      numfit_pad[good_pad[3]-1]++;
 
 	      //Define all 6 ith-rows per event, each row will correspond to a linear equation
 	      row1 = 6*(ngood)-6;
@@ -952,5 +966,18 @@ void fitHodoCalib(TString filename,Int_t runNUM,Bool_t cosmic_flag=kFALSE)
 	
       }
     
-    
+      for (int ipad = 1; ipad<=21; ipad++) {
+    for (int iplane = 0; iplane<PLANES; iplane++)  {
+
+      if (ipad<maxPMT[iplane]) {
+          cout << numfit_pad[ipad+refPad[iplane]-1] << "    " ;
+      } else {
+	cout << -1 << "     " ;
+	  }
+      
+	      }
+    cout << endl;
+      }
+
+  
 }

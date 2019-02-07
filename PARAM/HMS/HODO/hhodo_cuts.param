@@ -34,7 +34,7 @@ hhodo_adc_mode=1
 
 
 ; tof and you figured out good values
-   htof_tolerance = 2.0
+   htof_tolerance = 100.0
 ;                                                                               
 ; hms_tof_params                                                                
 ; hnum_scin_counters, hhodo_zpos, hhodo_center_coord, hhodo_width               

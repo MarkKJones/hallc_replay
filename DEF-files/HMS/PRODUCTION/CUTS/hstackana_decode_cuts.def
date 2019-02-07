@@ -3,6 +3,9 @@ Block: Decode
 hcut_TRIG1        T.hms.hTRIG1_tdcTimeRaw > 0
 hcut_TRIG2        T.hms.hTRIG2_tdcTimeRaw > 0
 hcut_TRIG3        T.hms.hTRIG3_tdcTimeRaw > 0
+pcut_TRIG1        T.hms.pTRIG1_tdcTimeRaw > 0
+pcut_TRIG2        T.hms.pTRIG2_tdcTimeRaw > 0
+pcut_TRIG3        T.hms.pTRIG3_tdcTimeRaw > 0
 HMS_Pretrig       hcut_TRIG1 || hcut_TRIG2 || hcut_TRIG3
 
 hms_trigs              HMS_event 

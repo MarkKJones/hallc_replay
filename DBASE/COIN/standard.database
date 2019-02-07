@@ -1,6 +1,9 @@
 0-6580
 g_ctp_parm_filename       = "DBASE/COIN/general.param"
 g_ctp_kinematics_filename = "DBASE/COIN/standard.kinematics"
-6581-999999
+6581-7050
 g_ctp_parm_filename       = "DBASE/COIN/general_runperiod2.param"
+g_ctp_kinematics_filename = "DBASE/COIN/standard.kinematics"
+7051-999999
+g_ctp_parm_filename       = "DBASE/COIN/general_jpsi.param"
 g_ctp_kinematics_filename = "DBASE/COIN/standard.kinematics"

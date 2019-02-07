@@ -34,31 +34,32 @@ pntracks_max_fp = 10
 
 ; No small angle approximation for cosmic ray tests
   pSmallAngleApprox = 1
-
-; Crude track selection criteria in h_physics
-; psel_chi2_fpperdegmax   maximum chi2 per degree of freedom for track
-  psel_chi2_fpperdegmax = 2000000.
-; psel_dedx1min           minimum dedx to chose best track in scin 1
-  psel_dedx1min = -100000
-; psel_dedx1max           maximum dedx to chose best track in scin 1
-  psel_dedx1max = 1000000.
-; psel_betamin            minimum track beta to chose best track
-  psel_betamin  = -100000
-; psel_betamax            maximum track beta to chose best track
-  psel_betamax  = 100000.
-; psel_etmin              minimum track et to chose best track
-  psel_etmin = 0.05
-; psel_etmax              maximum track et to chose best track
-  psel_etmax = 100000.
-; psel_ndegreesmin        minimum number of degrees of freedom for track
-  psel_ndegreesmin = 1
-
-
+; xptar prune min =  0.03
+pprune_xp = .05
+; yptar prune min= 0.04
+pprune_yp = .05
+; ytar prune min= 4
+pprune_ytar = 6
+; delta prune  min = 13
+pprune_delta = 30
+; beta track = beta mom diff prune  min = .1
+pprune_beta = .5
+; min number of deg of freedom in track  prune min = 1.0
+pprune_df = 1
+; chi of beta   min = 2.0
+pprune_chibeta = 100
+; Number PMT hits    min = 6.0
+pprune_npmt=6
+; focal plane time - Start time center difference  min = 5.0
+pprune_fptime = 1000. 
+; Hardcode to check if track has hit in plane 4.
+;            check if track has hit in plane 3.
+; if more than one track pass prune then select one with lowest chi2
 ; if both psel_using_scin = 0 and psel_using_prune = 0 then best chi2 track is used.
 ; psel_using_scin         uses scintillator for track selection
   psel_using_scin = 0
 ; psel_using_prune         using prune
-  psel_using_prune = 0
+  psel_using_prune = 1
 
 ; parameters used in selecting tracks for Hodoscope efficiency in THcHodoEff.cxx
 ;   HodoEff_CalEnergy_Cut  cut on the track energy (GeV)
@@ -95,4 +96,4 @@ pntracks_max_fp = 10
   pyhiscin  = 11, 14
 ;  ptrack_eff_test_scin_planes is the number of planes nec needed to
 ;  set sweet spot to true. 4 is extra clean, 3 is good enough for e-'s.
-  ptrack_eff_test_num_scin_planes = 4
+  ptrack_eff_test_num_scin_planes = 3

@@ -35,7 +35,7 @@ pscin_tdc_max = 2000
                             
 
 ; tof and you figured out good values
-ptof_tolerance = 2.0
+ptof_tolerance = 3.0
                                                                                
 ; shms_tof_params                                                              
 ; pnum_scin_counters, phodo_zpos, phodo_center_coord, phodo_width               

@@ -17,6 +17,22 @@ HMSScinDid            HMSScinShould && H.dc.ntrack > 0
 HMSScinDide           HMSScinShoulde && H.dc.ntrack > 0
 HMSScinDidh           HMSScinShouldh && H.dc.ntrack > 0
 
+HMSScinShould_coin         HMSScinGood && HMSGoodBetanotrk && !hmsDCany_large && g.evtyp>=4
+HMSScinShoulde_coin       HMSScinShould_coin && H.cal.etotnorm > 0.6&& H.cal.etotnorm < 2.0&& H.cer.npeSum > 0.5
+HMSScinShouldh_coin       HMSScinGood && H.cal.etotnorm <0.6&& H.cal.etotnorm>0.0&& H.cer.npeSum < 0.5 && g.evtyp>=4
+
+HMSScinDid_coin            HMSScinShould_coin && H.dc.ntrack > 0
+HMSScinDide_coin           HMSScinShoulde_coin && H.dc.ntrack > 0
+HMSScinDidh_coin          HMSScinShouldh_coin && H.dc.ntrack > 0
+
+HMSScinShould_hmssing         HMSScinGood && HMSGoodBetanotrk && !hmsDCany_large && g.evtyp==2
+HMSScinShoulde_hmssing       HMSScinShould_hmssing && H.cal.etotnorm > 0.6&& H.cal.etotnorm < 2.0&& H.cer.npeSum > 0.5
+HMSScinShouldh_hmssing       HMSScinGood && H.cal.etotnorm <0.6&& H.cal.etotnorm>0.0&& H.cer.npeSum < 0.5 && g.evtyp==2
+
+HMSScinDid_hmssing            HMSScinShould_hmssing && H.dc.ntrack > 0
+HMSScinDide_hmssing           HMSScinShoulde_hmssing && H.dc.ntrack > 0
+HMSScinDidh_hmssing          HMSScinShouldh_hmssing && H.dc.ntrack > 0
+
 hcut_goodHDC1x1            H.dc.1x1.nhit > 0 && H.dc.1x1.nhit < 3
 hcut_goodHDC1v2            H.dc.1v2.nhit > 0 && H.dc.1v2.nhit < 3
 hcut_goodHDC1u1            H.dc.1u1.nhit > 0 && H.dc.1u1.nhit < 3

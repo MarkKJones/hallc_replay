@@ -56,6 +56,14 @@ Ps6_factor = {ghconfig_ti_ps_factors[5]}
 * Triggers
 ***********
 
+hTrig 1 : {H.hTRIG1.scaler}    {hcut_TRIG1.npassed}  {hcut_TRIG1.npassed/H.hTRIG1.scaler/ghconfig_ti_ps_factors[0]}
+hTrig 2 : {H.hTRIG2.scaler}    {hcut_TRIG2.npassed}  {hcut_TRIG2.npassed/H.hTRIG2.scaler/ghconfig_ti_ps_factors[1]}
+hTrig 3 : {H.hTRIG3.scaler}    {hcut_TRIG3.npassed}  {hcut_TRIG3.npassed/H.hTRIG3.scaler/ghconfig_ti_ps_factors[2]}
+
+pTrig 1 : {H.pTRIG1.scaler}    {pcut_TRIG1.npassed}  {pcut_TRIG1.npassed/H.pTRIG1.scaler} {pcut_TRIG1.npassed/H.pTRIG1.scaler*ghconfig_ti_ps_factors[0]}
+pTrig 2 : {H.pTRIG2.scaler}    {pcut_TRIG2.npassed}  {pcut_TRIG2.npassed/H.pTRIG2.scaler}  {pcut_TRIG2.npassed/H.pTRIG2.scaler*ghconfig_ti_ps_factors[1]}
+pTrig 3 : {H.pTRIG3.scaler}    {pcut_TRIG3.npassed}  {pcut_TRIG3.npassed/H.pTRIG3.scaler} {pcut_TRIG3.npassed/H.pTRIG3.scaler*ghconfig_ti_ps_factors[2]}
+
 =:=:=:=:=:=:=:=:
 = 3/4 Triggers
 =:=:=:=:=:=:=:=:
@@ -332,6 +340,24 @@ hscinshouldh                   :   {HMSScinShouldh.npassed}
 SING FID TRACK EFFIC           :   {HMSScinDid.npassed/(HMSScinShould.npassed+0.0001):%8.4f} +- {(sqrt(HMSScinShould.npassed-HMSScinDid.npassed)/(HMSScinShould.npassed+.0001)):%8.4f}
 E SING FID TRACK EFFIC         :   {HMSScinDide.npassed/(HMSScinShoulde.npassed+0.0001):%8.4f} +- {(sqrt(HMSScinShoulde.npassed-HMSScinDide.npassed)/(HMSScinShoulde.npassed+.0001)):%8.4f}
 HADRON SING FID TRACK EFFIC    :   {HMSScinDidh.npassed/(HMSScinShouldh.npassed+0.0001):%8.4f} +- {(sqrt(HMSScinShouldh.npassed-HMSScinDidh.npassed)/(HMSScinShouldh.npassed+.0001)):%8.4f}
+hdid_coin                           :   {HMSScinDid_coin.npassed}
+hdide_coin                          :   {HMSScinDide_coin.npassed}
+hdidh_coin                          :   {HMSScinDidh_coin.npassed}
+hscinshould_coin                    :   {HMSScinShould_coin.npassed}
+hscinshoulde_coin                   :   {HMSScinShoulde_coin.npassed}
+hscinshouldh_coin                   :   {HMSScinShouldh_coin.npassed}
+Coin SING FID TRACK EFFIC           :   {HMSScinDid_coin.npassed/(HMSScinShould_coin.npassed+0.0001):%8.4f} +- {(sqrt(HMSScinShould_coin.npassed-HMSScinDid_coin.npassed)/(HMSScinShould_coin.npassed+.0001)):%8.4f}
+Coin E SING FID TRACK EFFIC         :   {HMSScinDide_coin.npassed/(HMSScinShoulde_coin.npassed+0.0001):%8.4f} +- {(sqrt(HMSScinShoulde_coin.npassed-HMSScinDide_coin.npassed)/(HMSScinShoulde_coin.npassed+.0001)):%8.4f}
+Coin HADRON SING FID TRACK EFFIC    :   {HMSScinDidh_coin.npassed/(HMSScinShouldh_coin.npassed+0.0001):%8.4f} +- {(sqrt(HMSScinShouldh_coin.npassed-HMSScinDidh_coin.npassed)/(HMSScinShouldh_coin.npassed+.0001)):%8.4f}
+hdid_hmssing                           :   {HMSScinDid_hmssing.npassed}
+hdide_hmssing                          :   {HMSScinDide_hmssing.npassed}
+hdidh_hmssing                          :   {HMSScinDidh_hmssing.npassed}
+hscinshould_hmssing                    :   {HMSScinShould_hmssing.npassed}
+hscinshoulde_hmssing                   :   {HMSScinShoulde_hmssing.npassed}
+hscinshouldh_hmssing                   :   {HMSScinShouldh_hmssing.npassed}
+Hmssing SING FID TRACK EFFIC           :   {HMSScinDid_hmssing.npassed/(HMSScinShould_hmssing.npassed+0.0001):%8.4f} +- {(sqrt(HMSScinShould_hmssing.npassed-HMSScinDid_hmssing.npassed)/(HMSScinShould_hmssing.npassed+.0001)):%8.4f}
+Hmssing E SING FID TRACK EFFIC         :   {HMSScinDide_hmssing.npassed/(HMSScinShoulde_hmssing.npassed+0.0001):%8.4f} +- {(sqrt(HMSScinShoulde_hmssing.npassed-HMSScinDide_hmssing.npassed)/(HMSScinShoulde_hmssing.npassed+.0001)):%8.4f}
+Hmssing HADRON SING FID TRACK EFFIC    :   {HMSScinDidh_hmssing.npassed/(HMSScinShouldh_hmssing.npassed+0.0001):%8.4f} +- {(sqrt(HMSScinShouldh_hmssing.npassed-HMSScinDidh_hmssing.npassed)/(HMSScinShouldh_hmssing.npassed+.0001)):%8.4f}
 
 ****************
 * HGC Cerenkov *

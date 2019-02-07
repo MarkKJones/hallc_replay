@@ -1,11 +1,12 @@
 block P.gtr.*
-block P.extcor.*
+block P.tr.*
+ock P.extcor.*
 block P.dc.x_fp
 block P.dc.xp_fp
 block P.dc.y_fp
 block P.dc.yp_fp
 block P.dc.ntrack
-block P.hgcer.*
+block P.hgcer.npeSum
 block P.cal.etotnorm
 block P.cal.etracknorm
 block P.cal.etottracknorm
@@ -18,6 +19,8 @@ block P.hod.start*
 block P.cal.eprtrack
 block P.cal.eprtracknorm
 block P.cal.etot
-block P.hod.*
+
+
+
 
 
