@@ -6,6 +6,8 @@ block T.coin.*
 block CTime*
 block D.*
 block g.evtyp*
+block P.tr.PruneSelect
+block H.tr.PruneSelect
 
 block H.extcor.xsieve
 block H.extcor.ysieve
@@ -15,6 +17,8 @@ block H.rb.raster.fr_xbpm_tar
 block H.rb.raster.fr_ybpm_tar
 block H.gtr.*
 block H.kin.*
+block H.dc.Ch*.*
+block P.dc.Ch*.*
 block H.dc.x_fp
 block H.dc.xp_fp
 block H.dc.y_fp

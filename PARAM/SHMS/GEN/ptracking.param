@@ -4,13 +4,13 @@
 ;              kami kaze events which hang the analyzer to a long time.
 
 ; Tracking parameters
-  pmax_pr_hits = 25, 25
+  pmax_pr_hits = 35, 35
 
 ; pminhit(i)   minimum number of hits in each space point (one for each chamber)
-pmin_hit = 4, 4
+pmin_hit = 5, 5
 ; hmin_combos(i) minimum number of pairs in each space point ( one per chamber)
 ; should be 3/3 for 4/6 tracking, and 4/4 for 5/6 tracking (JRA)
-pmin_combos = 3, 3
+pmin_combos = 4, 4
 ; hspace_point_criterion(i) minimum separation of distinct space points
 ; recommended value for hspace_point_criterion ( based on meeting
 ; Feb 2003)
@@ -23,7 +23,6 @@ pntracks_max_fp = 10
 
 ; The following four criteria are applied to the stub fit results at the
 ; focal plane position to link stubs to tracks
-  pntracks_max_fp = 10
   pxt_track_criterion = 100.0
   pyt_track_criterion = 20.0
   pxpt_track_criterion = 1.0
@@ -34,32 +33,37 @@ pntracks_max_fp = 10
 
 ; No small angle approximation for cosmic ray tests
   pSmallAngleApprox = 1
-; xptar prune min =  0.03
+; psel_using_prune         using prune
+  psel_using_prune = 1
+; xptar prune
 pprune_xp = .05
-; yptar prune min= 0.04
+; yptar prune 
 pprune_yp = .05
-; ytar prune min= 4
+; ytar prune 
 pprune_ytar = 6
-; delta prune  min = 13
+; delta prune 
 pprune_delta = 30
-; beta track = beta mom diff prune  min = .1
+; beta track = beta mom diff 
 pprune_beta = .5
-; min number of deg of freedom in track  prune min = 1.0
+; min number of deg of freedom in track 
 pprune_df = 1
-; chi of beta   min = 2.0
-pprune_chibeta = 100
 ; Number PMT hits    min = 6.0
 pprune_npmt=6
-; focal plane time - Start time center difference  min = 5.0
+; chi of beta   min = 2.0
+pprune_chibeta = 100
+; focal plane time - Start time center difference  
 pprune_fptime = 1000. 
+; Prune selects on if hit Y2 plane
+; Prune selects on if hit X2 plane
+; Prune selects on chi2
+;
+
 ; Hardcode to check if track has hit in plane 4.
 ;            check if track has hit in plane 3.
 ; if more than one track pass prune then select one with lowest chi2
 ; if both psel_using_scin = 0 and psel_using_prune = 0 then best chi2 track is used.
 ; psel_using_scin         uses scintillator for track selection
   psel_using_scin = 0
-; psel_using_prune         using prune
-  psel_using_prune = 1
 
 ; parameters used in selecting tracks for Hodoscope efficiency in THcHodoEff.cxx
 ;   HodoEff_CalEnergy_Cut  cut on the track energy (GeV)
