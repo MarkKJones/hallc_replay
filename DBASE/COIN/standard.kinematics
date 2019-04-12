@@ -9521,5 +9521,15 @@ ppartmass = 0.1395706
 hpartmass = 0.0005109
 
 
+8251 - 8999
+gpbeam = 8.210
+gtargmass_amu = 1.00794
+hpcentral = 0.962
+ppcentral = 6.755
+htheta_lab = -49.308
+ptheta_lab = 6.205
+ppartmass =  0.497
+hpartmass = 0.000511
+
 
 

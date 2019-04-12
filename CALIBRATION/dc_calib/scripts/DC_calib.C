@@ -416,7 +416,7 @@ void DC_calib::GetDCLeafs()
 
   else if (spec=="HMS")
     {
-      cal_etot_leaf = "H.cal.etot";
+      cal_etot_leaf = "H.cal.etotnorm";
       cer_npe_leaf = "H.cer.npeSum";  
      
 
@@ -924,7 +924,7 @@ void DC_calib::EventLoop(string option="")
       //PID Cut, Set Bool_t to actual leaf value, and see if it passes cut
       else if (pid=="pid_elec")
 	{
-	  cal_elec = cal_etot>0.1;  //normalize energy > 0.1 (bkg cleanup)
+	  cal_elec = cal_etot>0.5;  //normalize energy > 0.1 (bkg cleanup)
 	  cer_elec = cer_npe>1.0;     //number of photoelec. > 1 (electrons)
 	  
 	}
