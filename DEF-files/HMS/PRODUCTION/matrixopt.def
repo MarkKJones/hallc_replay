@@ -20,6 +20,7 @@ block H.react.z
 block H.hod.goodscinhit
 block H.hod.beta*
 block H.hod.start*
+block H.hod.*
 block H.cal.eprtrack
 block H.cal.eprtracknorm
 block H.cal.etot

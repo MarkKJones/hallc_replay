@@ -4,7 +4,7 @@ formula P.gtr.xptar P.gtr.th
 formula P.gtr.yptar P.gtr.ph
 block T.coin.*
 block CTime*
-block D.*
+#block D.*
 block g.evtyp*
 block P.tr.PruneSelect
 block H.tr.PruneSelect

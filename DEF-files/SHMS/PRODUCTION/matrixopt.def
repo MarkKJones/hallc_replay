@@ -16,6 +16,7 @@ block P.kin.*
 block P.hod.goodscinhit
 block P.hod.beta*
 block P.hod.start*
+block P.hod.*
 block P.cal.eprtrack
 block P.cal.eprtracknorm
 block P.cal.etot
