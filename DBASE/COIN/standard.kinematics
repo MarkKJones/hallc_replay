@@ -9510,7 +9510,7 @@ ppcentral = 0.0
 ppartmass = 0.1395706
 hpartmass = 0.0005109
 
-7047 - 99999
+7047 - 7047
 gpbeam = 10.6
 gtargmass_amu = 1.00794
 htheta_lab = -42.0
@@ -9519,6 +9519,38 @@ hpcentral = 0.0
 ppcentral = 0.0
 ppartmass = 0.1395706
 hpartmass = 0.0005109
+
+7822 - 7823
+gpbeam = 10.212
+gtargmass_amu = 1.00794
+htheta_lab = -23.22
+ptheta_lab = 22.28
+hpcentral = 5.714
+ppcentral = 5.65
+ppartmass = 0.93827
+hpartmass = 0.0005109
+
+7826 - 7827
+gpbeam = 10.212
+gtargmass_amu = 1.00794
+htheta_lab = -21.93
+ptheta_lab = 23.48
+hpcentral = 5.714
+ppcentral = 5.36
+ppartmass = 0.93827
+hpartmass = 0.0005109
+
+7830 - 7830
+gpbeam = 10.212
+gtargmass_amu = 1.00794
+htheta_lab = -20.71
+ptheta_lab = 24.74
+hpcentral = 5.714
+ppcentral = 5.07
+ppartmass = 0.93827
+hpartmass = 0.0005109
+
+
 
 # Kaon L-T Physics
 
@@ -9586,3 +9618,14 @@ hpartmass = 0.000511
 
 
 
+
+
+6200 - 6200
+gpbeam = 10.6
+gtargmass_amu = 26.92
+htheta_lab = -17.36
+ptheta_lab = 14.16
+hpcentral = 4.973
+ppcentral = 3.373
+ppartmass = 0.1395706
+hpartmass = 0.0005109
