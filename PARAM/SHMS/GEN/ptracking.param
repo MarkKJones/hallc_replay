@@ -43,10 +43,12 @@ pprune_yp = .05
 pprune_ytar = 6
 ; delta prune 
 pprune_delta = 30
+; Dipole Exit prune
+pprune_DipoleExit = 1.0
 ; beta track = beta mom diff 
 pprune_beta = .5
 ; min number of deg of freedom in track 
-pprune_df = 1
+pprune_df = 8
 ; Number PMT hits    min = 6.0
 pprune_npmt=6
 ; chi of beta   min = 2.0

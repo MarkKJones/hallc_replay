@@ -8,6 +8,8 @@ block CTime*
 block g.evtyp*
 block P.tr.PruneSelect
 block H.tr.PruneSelect
+block P.tr.*
+block H.tr.*
 
 block H.extcor.xsieve
 block H.extcor.ysieve
@@ -24,6 +26,8 @@ block H.dc.xp_fp
 block H.dc.y_fp
 block H.dc.yp_fp
 block H.dc.ntrack
+block H.dc.Inside*
+block P.dc.Inside*
 block H.cer.npeSum
 block P.hgcer.npeSum
 block H.cer.npeSum

@@ -8,11 +8,11 @@ hntracks_max_fp = 10
 h_remove_sppt_if_one_y_plane = 0
 
 ; Minimum number of hits in each space point (one per chamber)
-hmin_hit = 4, 4
+hmin_hit = 5, 5
 
 ; Minimum number of pairs in each space point (one per chamber)
 ; Should be 3/3 for 4/6 tracking, and 4/4 for 5/6 tracking
-hmin_combos = 3, 3 
+hmin_combos = 4, 4 
 
 ; Minimum separation of distinct space points
 hspace_point_criterion = 1.0, 1.0
@@ -63,6 +63,28 @@ hstub_max_xpdiff = .05
   hsel_using_scin = 0
 ; hsel_using_prune         using prune
   hsel_using_prune = 1
+; xptar prune
+hprune_xp = .05
+; yptar prune 
+hprune_yp = .05
+; ytar prune 
+hprune_ytar = 6
+; delta prune 
+hprune_delta = 30
+; beta track = beta mom diff 
+; Dipole Exit prune
+hprune_DipoleExit = 1.0
+hprune_beta = .5
+; min number of deg of freedom in track 
+hprune_df = 8
+; Number PMT hits    min = 6.0
+hprune_npmt=6
+; chi of beta   min = 2.0
+hprune_chibeta = 100
+; focal plane time - Start time center difference  
+hprune_fptime = 1000. 
+; Prune selects on if hit Y2 plane
+; Prune selects on if hit X2 plane
 
 
 ; parameters used in selecting tracks for Hodoscope efficiency in THcHodoEff.cxx

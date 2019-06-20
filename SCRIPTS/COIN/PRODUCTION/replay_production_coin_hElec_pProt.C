@@ -47,7 +47,7 @@ void replay_production_coin_hElec_pProt (Int_t RunNumber = 0, Int_t MaxEvent = 0
   gHcDetectorMap->Load("MAPS/COIN/DETEC/coin.map");
 
   //DecData* decdata = new THaDecData("D","Decoder");
-  gHaApps->Add(new Podd::DecData("D","Decoder raw data"));
+  // gHaApps->Add(new Podd::DecData("D","Decoder raw data"));
   //=:=:=:=
   // SHMS 
   //=:=:=:=

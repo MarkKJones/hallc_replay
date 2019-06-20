@@ -5120,9 +5120,9 @@ gpbeam = 10.585
 gtargmass_amu = 2.014101
 htheta_lab = -16.30
 ptheta_lab = 14.005
-hpcentral = 3.44
-ppcentral = 5.270
-ppartmass = 0.0005109
+ppcentral = 3.44
+hpcentral = 5.270
+ppartmass = 0.139
 hpartmass = 0.0005109
 
 5387
@@ -9553,6 +9553,16 @@ hpartmass = 0.0005109
 
 
 # Kaon L-T Physics
+# Sieve
+7947
+gpbeam = 8.186
+gtargmass_amu = 1.00794
+hpcentral = 5.745
+ppcentral = 5.745
+htheta_lab = -12.97
+ptheta_lab = 9.51
+ppartmass =  0.497
+hpartmass = 0.000511
 
 7978 - 8002
 gpbeam = 8.210
