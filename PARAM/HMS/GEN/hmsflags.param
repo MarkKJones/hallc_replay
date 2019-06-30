@@ -15,7 +15,7 @@
 ;  plots will be screwed up.
   hdelta_offset = 0.       ; (%)   hdelta_tar = hdelta_tar + hdelta_offset
   htheta_offset = 0.00  ; (rad) hyp_tar = hyp_tar + htheta_offset
-  hphi_offset   =  0.000 ; (rad) hxp_tar = hxp_tar + hphi_offset
+  hphi_offset   =  0.003 ; (rad) hxp_tar = hxp_tar + hphi_offset
 ;
 
 ;saturation correction flag

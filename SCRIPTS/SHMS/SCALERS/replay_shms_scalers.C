@@ -16,7 +16,7 @@ void replay_shms_scalers (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   }
 
   // Create file name patterns.
-  const char* RunFileNamePattern = "shms_all_%05d.dat";
+  const char* RunFileNamePattern = "coin_all_%05d.dat";
   vector<TString> pathList;
   pathList.push_back(".");
   pathList.push_back("./raw");
@@ -28,7 +28,7 @@ void replay_shms_scalers (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   // Load global parameters
   // Add variables to global list.
   gHcParms->Define("gen_run_number", "Run Number", RunNumber);
-  gHcParms->AddString("g_ctp_database_filename", "DBASE/SHMS/standard.database");
+  gHcParms->AddString("g_ctp_database_filename", "DBASE/COIN/standard.database");
   gHcParms->Load(gHcParms->GetString("g_ctp_database_filename"), RunNumber);
   gHcParms->Load(gHcParms->GetString("g_ctp_parm_filename"));
   gHcParms->Load(gHcParms->GetString("g_ctp_kinematics_filename"), RunNumber);
@@ -36,7 +36,7 @@ void replay_shms_scalers (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
 
   // Load the Hall C detector map
   gHcDetectorMap = new THcDetectorMap();
-  gHcDetectorMap->Load("MAPS/SHMS/DETEC/STACK/shms_stack.map");
+  gHcDetectorMap->Load("MAPS/COIN/DETEC/coin.map");
 
   // Add trigger apparatus
   THaApparatus* TRG = new THcTrigApp("T", "TRG");

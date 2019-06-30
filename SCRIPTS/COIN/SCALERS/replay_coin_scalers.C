@@ -130,7 +130,7 @@ void replay_coin_scalers (Int_t RunNumber = 0, Int_t MaxEvent = 0,Int_t FirstEve
   analyzer->SetEvent(event);
   analyzer->SetMarkInterval(100000);
   // Set EPICS event type
-  analyzer->SetEpicsEvtType(180);
+  analyzer->SetEpicsEvtType(181);
   // Define crate map
   analyzer->SetCrateMapFileName("MAPS/db_cratemap.dat");
   // Define output ROOT file
